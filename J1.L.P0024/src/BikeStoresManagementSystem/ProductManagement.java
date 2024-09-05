@@ -47,6 +47,9 @@ public class ProductManagement {
                 case 3:
                     prodList.updateProduct();
                     break;
+                case 4:
+                    prodList.deleteProduct();
+                    break;
                 case 7:
                     prodList.listAll();
                     break;

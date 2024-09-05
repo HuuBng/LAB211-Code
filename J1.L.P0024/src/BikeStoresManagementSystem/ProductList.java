@@ -265,5 +265,37 @@ public class ProductList extends ArrayList<Product> {
         return true;
     }
 
+    public boolean deleteProduct() {
+        String id = generateCodeFromStr();
+        if (checkUniqueID(id)) {
+            System.err.println("Product ID does not exist");
+            return false;
+        }
+
+        int index = -1;
+        for (int i = 0; i < pList.size(); i++) {
+            if (pList.get(i).getId().equals(id)) {
+                index = i;
+            }
+        }
+
+        if (index == -1) {
+            System.err.println("Product ID not found in list but pass check");
+            return false;
+        }
+
+        String choice = readStr("Are you sure? (y/n)").toLowerCase();
+        if (choice.equalsIgnoreCase("y")) {
+            pList.remove(index);
+            System.out.println("Remove SUCCESS");
+        } else if (choice.equalsIgnoreCase("n")) {
+            System.out.println("Remove ABORTED");
+        } else {
+            System.err.println("Invalid choice");
+            System.out.println("Remove FAIL");
+        }
+
+        return true;
+    }
 
 }
