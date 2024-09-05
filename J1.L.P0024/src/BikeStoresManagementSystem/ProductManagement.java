@@ -57,6 +57,9 @@ public class ProductManagement {
                 case 5:
                     prodList.saveProductsToFile(pFile);
                     break;
+                case 6:
+                    prodList.displayProductInfo(pFile);
+                    break;
                 case 7:
                     prodList.listAll();
                     break;

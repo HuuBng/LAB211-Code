@@ -12,11 +12,13 @@ public class ProductList extends ArrayList<Product> {
     ArrayList<Brand> bList;
     ArrayList<Category> cList;
     ArrayList<Product> pList;
+    ArrayList<Product> pfList;
 
     public ProductList() {
         bList = new ArrayList<>();
         cList = new ArrayList<>();
         pList = new ArrayList<>();
+        pfList = new ArrayList<>();
     }
 
     public void loadBrand(String filename) {
@@ -320,5 +322,66 @@ public class ProductList extends ArrayList<Product> {
             System.err.println("ErrBrandWrite: " + e);
         }
         return false;
+    }
+
+    public void loadProduct(String filename) {
+        try (Scanner scf = new Scanner(new File(filename))) {
+
+            while (scf.hasNext()) {
+                String[] data = scf.nextLine().split(", ");
+                if (data.length < 6) {
+                    continue;
+                }
+                Product product = new Product(data[0]);
+                product.setName(data[1]);
+                product.setBrandID(data[2]);
+                product.setCategoryID(data[3]);
+                product.setYear(Integer.parseInt(data[4]));
+                product.setPrice(Double.parseDouble(data[5]));
+                pfList.add(product);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("FileNotFound: " + filename);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String toString(Product prod) {
+        String brandName = "";
+        for (Brand x : bList) {
+            if (x.getBrandID().equals(prod.getBrandID())) {
+                brandName = x.getBrandName();
+                break;
+            }
+        }
+
+        String categoryName = "";
+        for (Category x : cList) {
+            if (x.getCategoryID().equals(prod.getCategoryID())) {
+                categoryName = x.getCategoryName();
+                break;
+            }
+        }
+
+        return prod.getId() + ", " + prod.getName() + ", " + brandName + ", " + categoryName + ", " + prod.getYear() + ", " + prod.getPrice();
+    }
+
+    public void displayProductInfo(String filename) {
+        loadProduct(filename);
+
+        pfList.sort(new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                if (o2.getPrice() - o1.getPrice() != 0) {
+                    return (int) (o2.getPrice() - o1.getPrice());
+                }
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+
+        for (Product x : pfList) {
+            System.out.println(toString(x));
+        }
+
     }
 }
