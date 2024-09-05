@@ -34,10 +34,6 @@ public class Product {
     }
 
     public void setName(String name) {
-        while (name.trim().isEmpty()) {
-            System.err.println("NAME must not be empty!!!");
-            name = readStr("Enter NAME");
-        }
         this.name = name;
     }
 
