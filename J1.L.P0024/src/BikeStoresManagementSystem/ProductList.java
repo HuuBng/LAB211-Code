@@ -104,9 +104,9 @@ public class ProductList extends ArrayList<Product> {
     public void createProduct() {
         String id;
         do {
-            id = readStr("Enter ID");
+            id = generateCodeFromStr();
             if ((!checkUniqueID(id))) {
-                System.err.println("Please enter a unique ID");
+                System.err.println("Please enter a unique ID number");
             }
         } while (!checkUniqueID(id));
         Product prod = new Product(id);
@@ -190,5 +190,80 @@ public class ProductList extends ArrayList<Product> {
         System.out.println(" === pList ===");
         pList.forEach(System.out::println);
     }
+
+    public boolean updateProduct() {
+        String id = generateCodeFromStr();
+        if (checkUniqueID(id)) {
+            System.err.println("Product ID does not exist");
+            return false;
+        }
+
+        int index = -1;
+        for (int i = 0; i < pList.size(); i++) {
+            if (pList.get(i).getId().equals(id)) {
+                index = i;
+            }
+        }
+
+        if (index == -1) {
+            System.err.println("Product ID not found in list but pass check");
+            return false;
+        }
+
+        String name = readStr("Enter NAME");
+        if (!name.isEmpty()) {
+            pList.get(index).setName(name);
+            System.out.println("Update SUCCESS");
+        }
+
+        String brandID = readStr("Enter BRAND_ID");
+        if (!brandID.isEmpty()) {
+            if (checkBrandID(brandID)) {
+                pList.get(index).setBrandID(brandID);
+                System.out.println("Update SUCCESS");
+            } else {
+                System.err.println("Invalid BRAND_ID");
+                System.out.println("Update FAIL");
+            }
+        }
+
+        String categoryID = readStr("Enter CATEGORY_ID");
+        if (!categoryID.isEmpty()) {
+            if (checkCategoryID(categoryID)) {
+                pList.get(index).setCategoryID(categoryID);
+                System.out.println("Update SUCCESS");
+            } else {
+                System.err.println("Invalid CATEGORY_ID");
+                System.out.println("Update FAIL");
+            }
+        }
+
+        String year = readStr("Enter YEAR");
+        if (!year.isEmpty()) {
+            int yr = Integer.parseInt(year);
+            if (yr > 1000 && yr < 10000) {
+                pList.get(index).setYear(yr);
+                System.out.println("Update SUCCESS");
+            } else {
+                System.err.println("Invalid YEAR");
+                System.out.println("Update FAIL");
+            }
+        }
+
+        String price = readStr("Enter PRICE");
+        if (!price.isEmpty()) {
+            double pr = Double.parseDouble(price);
+            if (pr > 0) {
+                pList.get(index).setPrice(pr);
+                System.out.println("Update SUCCESS");
+            } else {
+                System.err.println("Invalid PRICE");
+                System.out.println("Update FAIL");
+            }
+        }
+
+        return true;
+    }
+
 
 }
