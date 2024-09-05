@@ -11,8 +11,12 @@ public class ProductManagement {
         ProductList prodList = new ProductList();
 
         /* TODO: Remove J1.L.P0024 when commit */
-        prodList.loadBrand("J1.L.P0024/src/Brand.txt");
-        prodList.loadCategory("J1.L.P0024/src/Category.txt");
+        String bFile = "J1.L.P0024/src/Brand.txt";
+        String cFile = "J1.L.P0024/src/Category.txt";
+        String pFile = "J1.L.P0024/src/Product.txt";
+
+        prodList.loadBrand(bFile);
+        prodList.loadCategory(cFile);
 
         // Menu
         ArrayList<String> opts = new ArrayList<>();
@@ -49,6 +53,9 @@ public class ProductManagement {
                     break;
                 case 4:
                     prodList.deleteProduct();
+                    break;
+                case 5:
+                    prodList.saveProductsToFile(pFile);
                     break;
                 case 7:
                     prodList.listAll();

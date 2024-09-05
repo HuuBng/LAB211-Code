@@ -298,4 +298,27 @@ public class ProductList extends ArrayList<Product> {
         return true;
     }
 
+    public boolean saveProductsToFile(String filename) {
+
+        if (pList.isEmpty()) {
+            System.out.println("Product list is empty");
+            return false;
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+
+            for (Product x : pList) {
+                bw.write(x.toString());
+                bw.newLine();
+            }
+
+            System.out.println("Done!!!");
+            return true;
+        } catch (IOException e) {
+            System.err.println("Error writing file: " + filename);
+        } catch (Exception e) {
+            System.err.println("ErrBrandWrite: " + e);
+        }
+        return false;
+    }
 }
