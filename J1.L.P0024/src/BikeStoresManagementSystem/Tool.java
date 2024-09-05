@@ -108,4 +108,19 @@ public class Tool {
     public static int getNumberInCode(String code, int prefixLength) {
         return Integer.parseInt(code.substring(prefixLength));
     }
+
+    public static String generateCodeFromStr() {
+        Pattern inputPattern = Pattern.compile("\\d+");
+        String input;
+        do {
+            input = readStr("Enter ID number");
+            if (!inputPattern.matcher(input).find()) {
+                System.err.println("Please enter a valid ID number");
+            }
+        } while (!inputPattern.matcher(input).find());
+
+        int curNum = Integer.parseInt(input);
+
+        return generateCode("P", 3, curNum);
+    }
 }
