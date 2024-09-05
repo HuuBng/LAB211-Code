@@ -1,11 +1,9 @@
 package BikeStoresManagementSystem;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.Scanner;
 
 import static BikeStoresManagementSystem.Tool.*;
 
@@ -22,51 +20,39 @@ public class ProductList extends ArrayList<Product> {
     }
 
     public void loadBrand(String filename) {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(filename));
-            String line = br.readLine();
-            while (line != null) {
-                String[] data = line.split(", ");
+        try (Scanner scf = new Scanner(new File(filename))) {
+            
+            while (scf.hasNext()) {
+                String[] data = scf.nextLine().split(", ");
                 if (data.length < 3) {
                     continue;
                 }
                 Brand brand = new Brand();
-
                 brand.setBrandID(data[0]);
                 brand.setBrandName(data[1]);
                 brand.setBrandCountry(data[2]);
-
                 bList.add(brand);
-                line = br.readLine();
             }
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + filename);
-        } catch (Exception e) {
-            System.err.println("Error load: " + filename + " " + e);
+        } catch (FileNotFoundException e) {
+            System.err.println("FileNotFound: " + filename);
+            throw new RuntimeException(e);
         }
     }
 
     public void loadCategory(String filename) {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(filename));
-            String line = br.readLine();
-            while (line != null) {
-                String[] data = line.split(", ");
+        try (Scanner scf = new Scanner(new File(filename))) {
+
+            while (scf.hasNext()) {
+                String[] data = scf.nextLine().split(", ");
                 if (data.length < 2) {
                     continue;
                 }
-                Category category = new Category();
-
-                category.setCategoryID(data[0]);
-                category.setCategoryName(data[1]);
-
+                Category category = new Category(data[0], data[1]);
                 cList.add(category);
-                line = br.readLine();
             }
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + filename);
-        } catch (Exception e) {
-            System.err.println("Error load: " + filename + " " + e);
+        } catch (FileNotFoundException e) {
+            System.err.println("FileNotFound: " + filename);
+            throw new RuntimeException(e);
         }
     }
 
