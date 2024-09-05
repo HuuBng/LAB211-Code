@@ -122,7 +122,7 @@ public class ProductList extends ArrayList<Product> {
 
         String brandID;
         do {
-            brandID = readStr("Enter BRAND_ID");
+            brandID = readStr("Enter BRAND_ID").toUpperCase();
             if (!checkBrandID(brandID)) {
                 System.err.println("Please enter a valid BRAND_ID");
             }
@@ -131,7 +131,7 @@ public class ProductList extends ArrayList<Product> {
 
         String categoryID;
         do {
-            categoryID = readStr("Enter CATEGORY_ID");
+            categoryID = readStr("Enter CATEGORY_ID").toUpperCase();
             if (!checkCategoryID(categoryID)) {
                 System.err.println("Please enter a valid CATEGORY_ID");
             }
@@ -216,7 +216,7 @@ public class ProductList extends ArrayList<Product> {
             System.out.println("Update SUCCESS");
         }
 
-        String brandID = readStr("Enter BRAND_ID");
+        String brandID = readStr("Enter BRAND_ID").toUpperCase();
         if (!brandID.isEmpty()) {
             if (checkBrandID(brandID)) {
                 pList.get(index).setBrandID(brandID);
@@ -227,7 +227,7 @@ public class ProductList extends ArrayList<Product> {
             }
         }
 
-        String categoryID = readStr("Enter CATEGORY_ID");
+        String categoryID = readStr("Enter CATEGORY_ID").toUpperCase();
         if (!categoryID.isEmpty()) {
             if (checkCategoryID(categoryID)) {
                 pList.get(index).setCategoryID(categoryID);
