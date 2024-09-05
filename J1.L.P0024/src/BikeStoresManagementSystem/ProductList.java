@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static BikeStoresManagementSystem.Tool.*;
 
@@ -148,5 +150,26 @@ public class ProductList extends ArrayList<Product> {
 
         pList.add(prod);
     }
-    
+
+    public boolean searchNamePartial() {
+        String partialName = readStr("Enter name to search").toLowerCase();
+
+        ArrayList<Product> tmp = new ArrayList<>();
+
+        for (Product x : pList) {
+            if (x.getName().toLowerCase().contains(partialName)) {
+                tmp.add(x);
+            }
+        }
+
+        if (tmp.isEmpty()) {
+            System.out.println("There is no Product in list");
+            return false;
+        }
+
+        tmp.sort(Comparator.comparing(Product::getYear));
+        tmp.forEach(System.out::println);
+        return true;
+    }
+
 }
