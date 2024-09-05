@@ -9,7 +9,21 @@ public class Tool {
 
     public static final Scanner sc = new Scanner(System.in);
 
-    public static int menu(ArrayList<String> opts) {
+
+    public static void menu(ArrayList<Objects> opts) {
+        for (int i = 0; i < opts.size(); i++) {
+            System.out.println((i + 1) + ". " + opts.get(i));
+        }
+
+    }
+
+    public static void menu(Objects... opts) {
+        for (int i = 0; i < opts.length; i++) {
+            System.out.println((i + 1) + ". " + opts[i].toString());
+        }
+    }
+
+    public static int int_menu(ArrayList<String> opts) {
 
         int N = opts.size();
 
@@ -31,7 +45,7 @@ public class Tool {
         return Integer.parseInt(inputString);
     }
 
-    public static int menu(Objects... opts) {
+    public static int int_menu(Objects... opts) {
         int N = opts.length;
         for (int i = 0; i < N; i++) {
             System.out.println((i + 1) + ". " + opts[i].toString());
