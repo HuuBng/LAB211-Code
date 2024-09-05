@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
-import static BikeStoresManagementSystem.Tool.*;
+import static BikeStoresManagementSystem.Tool.generateCodeFromStr;
+import static BikeStoresManagementSystem.Tool.readStr;
 
 public class ProductList extends ArrayList<Product> {
 
@@ -161,7 +162,7 @@ public class ProductList extends ArrayList<Product> {
         pList.add(prod);
     }
 
-    public boolean searchNamePartial() {
+    public void searchNamePartial() {
         String partialName = readStr("Enter name to search").toLowerCase();
 
         ArrayList<Product> tmp = new ArrayList<>();
@@ -174,30 +175,18 @@ public class ProductList extends ArrayList<Product> {
 
         if (tmp.isEmpty()) {
             System.err.println("There is no Product in list");
-            return false;
+            return;
         }
 
         tmp.sort(Comparator.comparing(Product::getYear));
         tmp.forEach(System.out::println);
-        return true;
     }
 
-    public void listAll() {
-        System.out.println(" === bList ===");
-        bList.forEach(System.out::println);
-
-        System.out.println(" === cList ===");
-        cList.forEach(System.out::println);
-
-        System.out.println(" === pList ===");
-        pList.forEach(System.out::println);
-    }
-
-    public boolean updateProduct() {
+    public void updateProduct() {
         String id = generateCodeFromStr();
         if (checkUniqueID(id)) {
             System.err.println("Product ID does not exist");
-            return false;
+            return;
         }
 
         int index = -1;
@@ -209,7 +198,7 @@ public class ProductList extends ArrayList<Product> {
 
         if (index == -1) {
             System.err.println("Product ID not found in list but pass check");
-            return false;
+            return;
         }
 
         String name = readStr("Enter NAME");
@@ -264,14 +253,13 @@ public class ProductList extends ArrayList<Product> {
             }
         }
 
-        return true;
     }
 
-    public boolean deleteProduct() {
+    public void deleteProduct() {
         String id = generateCodeFromStr();
         if (checkUniqueID(id)) {
             System.err.println("Product ID does not exist");
-            return false;
+            return;
         }
 
         int index = -1;
@@ -283,7 +271,7 @@ public class ProductList extends ArrayList<Product> {
 
         if (index == -1) {
             System.err.println("Product ID not found in list but pass check");
-            return false;
+            return;
         }
 
         String choice = readStr("Are you sure? (y/n)").toLowerCase();
@@ -297,14 +285,13 @@ public class ProductList extends ArrayList<Product> {
             System.out.println("Remove FAIL");
         }
 
-        return true;
     }
 
-    public boolean saveProductsToFile(String filename) {
+    public void saveProductsToFile(String filename) {
 
         if (pList.isEmpty()) {
             System.out.println("Product list is empty");
-            return false;
+            return;
         }
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
@@ -315,13 +302,11 @@ public class ProductList extends ArrayList<Product> {
             }
 
             System.out.println("Done!!!");
-            return true;
         } catch (IOException e) {
             System.err.println("Error writing file: " + filename);
         } catch (Exception e) {
             System.err.println("ErrBrandWrite: " + e);
         }
-        return false;
     }
 
     public void loadProduct(String filename) {
@@ -369,14 +354,11 @@ public class ProductList extends ArrayList<Product> {
     public void displayProductInfo(String filename) {
         loadProduct(filename);
 
-        pfList.sort(new Comparator<Product>() {
-            @Override
-            public int compare(Product o1, Product o2) {
-                if (o2.getPrice() - o1.getPrice() != 0) {
-                    return (int) (o2.getPrice() - o1.getPrice());
-                }
-                return o1.getName().compareTo(o2.getName());
+        pfList.sort((o1, o2) -> {
+            if (o2.getPrice() - o1.getPrice() != 0) {
+                return (int) (o2.getPrice() - o1.getPrice());
             }
+            return o1.getName().compareTo(o2.getName());
         });
 
         for (Product x : pfList) {

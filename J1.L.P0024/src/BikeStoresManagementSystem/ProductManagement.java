@@ -2,7 +2,7 @@ package BikeStoresManagementSystem;
 
 import java.util.ArrayList;
 
-import static BikeStoresManagementSystem.Tool.*;
+import static BikeStoresManagementSystem.Tool.int_menu;
 
 public class ProductManagement {
 
@@ -26,7 +26,6 @@ public class ProductManagement {
         opts.add("Delete product");
         opts.add("Save product to file");
         opts.add("Print list from the file");
-        opts.add("listAll");
 
         int choice;
 
@@ -59,9 +58,6 @@ public class ProductManagement {
                     break;
                 case 6:
                     prodList.displayProductInfo(pFile);
-                    break;
-                case 7:
-                    prodList.listAll();
                     break;
                 default:
                     System.out.println("Exiting!!!");
