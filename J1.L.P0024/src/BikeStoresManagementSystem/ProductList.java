@@ -21,7 +21,7 @@ public class ProductList extends ArrayList<Product> {
 
     public void loadBrand(String filename) {
         try (Scanner scf = new Scanner(new File(filename))) {
-            
+
             while (scf.hasNext()) {
                 String[] data = scf.nextLine().split(", ");
                 if (data.length < 3) {
@@ -62,7 +62,7 @@ public class ProductList extends ArrayList<Product> {
      * @param id to check
      * @return {@code true} if {@code id} is unique
      */
-    public boolean checkID(String id) {
+    public boolean checkUniqueID(String id) {
         for (Product x : pList) {
             if (x.getId().equals(id)) {
                 return false;
@@ -105,32 +105,54 @@ public class ProductList extends ArrayList<Product> {
         String id;
         do {
             id = readStr("Enter ID");
-        } while (!checkID(id));
+            if ((!checkUniqueID(id))) {
+                System.err.println("Please enter a unique ID");
+            }
+        } while (!checkUniqueID(id));
         Product prod = new Product(id);
 
-        prod.setName(readStr("Enter NAME"));
+        String name;
+        do {
+            name = readStr("Enter NAME");
+            if (name.isEmpty()) {
+                System.err.println("Please enter a valid NAME");
+            }
+        } while (name.isEmpty());
+        prod.setName(name);
 
         String brandID;
         do {
             brandID = readStr("Enter BRAND_ID");
+            if (!checkBrandID(brandID)) {
+                System.err.println("Please enter a valid BRAND_ID");
+            }
         } while (!checkBrandID(brandID));
         prod.setBrandID(brandID);
 
         String categoryID;
         do {
             categoryID = readStr("Enter CATEGORY_ID");
+            if (!checkCategoryID(categoryID)) {
+                System.err.println("Please enter a valid CATEGORY_ID");
+            }
         } while (!checkCategoryID(categoryID));
         prod.setCategoryID(categoryID);
 
         int year;
         do {
             year = Integer.parseInt(readStr("Enter YEAR"));
+            if (year < 1000 || year > 9999) {
+                System.err.println("Please enter a valid YEAR");
+            }
         } while (year < 1000 || year > 9999);
         prod.setYear(year);
 
         double price;
         do {
             price = Double.parseDouble(readStr("Enter PRICE"));
+            if (price < 0) {
+                System.err.println("Please enter a valid PRICE");
+            }
         } while (price < 0);
         prod.setPrice(price);
 
@@ -149,13 +171,24 @@ public class ProductList extends ArrayList<Product> {
         }
 
         if (tmp.isEmpty()) {
-            System.out.println("There is no Product in list");
+            System.err.println("There is no Product in list");
             return false;
         }
 
         tmp.sort(Comparator.comparing(Product::getYear));
         tmp.forEach(System.out::println);
         return true;
+    }
+
+    public void listAll() {
+        System.out.println(" === bList ===");
+        bList.forEach(System.out::println);
+
+        System.out.println(" === cList ===");
+        cList.forEach(System.out::println);
+
+        System.out.println(" === pList ===");
+        pList.forEach(System.out::println);
     }
 
 }
