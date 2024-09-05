@@ -1,7 +1,5 @@
 package BikeStoresManagementSystem;
 
-import static BikeStoresManagementSystem.Tool.*;
-
 public class Product {
 
     private final String id;
