@@ -59,8 +59,13 @@ public class Tool {
         return prefix + String.format(formatStr, curNumber);
     }
 
-    public static String generateCodeFromStr() {
-        int curNum = readInt("Enter ID number", "ID number");
-        return generateCode("P", 3, curNum);
+    public static String generateCodeFromStr(String type) {
+        int curNum = readInt("Enter CODE number", "CODE number");
+        return generateCode("RAM_" + type + "_", 4, curNum);
+    }
+
+    public static String generateBusFromStr() {
+        int num = readInt("Enter BUS speed", "BUS speed");
+        return num + "MHz";
     }
 }
