@@ -16,18 +16,7 @@ public class Tool {
             System.out.println((i + 1) + ". " + opts.get(i));
         }
 
-        String inputString;
-        Pattern inputPattern = Pattern.compile("\\d+");
-
-        do {
-            System.out.print("Please choose an option: 1..." + N + ": ");
-            inputString = readStr();
-            if (!inputPattern.matcher(inputString).find()) {
-                System.err.println("Please enter a digit!!");
-            }
-        } while (!inputPattern.matcher(inputString).find());
-
-        return Integer.parseInt(inputString);
+        return readInt("Please choose an option: 1..." + N + ": ");
     }
 
     public static String readStr(String prompt) {
