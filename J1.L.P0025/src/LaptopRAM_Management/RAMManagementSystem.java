@@ -2,7 +2,7 @@ package LaptopRAM_Management;
 
 import java.util.ArrayList;
 
-import static LaptopRAM_Management.Tool.int_menu;
+import static LaptopRAM_Management.Tool.*;
 
 public class RAMManagementSystem {
 
@@ -34,9 +34,13 @@ public class RAMManagementSystem {
             System.out.println("||=======================||");
 
             choice = int_menu(opts);
-
+            System.out.println();
             switch (choice) {
                 case 1:
+                    do {
+                        ramList.createProduct();
+                    } while (exitChoice("Add another", "Exit"));
+                    System.out.println("Exiting!!!");
                     break;
                 case 2:
                     break;
