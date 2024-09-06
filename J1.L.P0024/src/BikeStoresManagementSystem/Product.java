@@ -7,13 +7,13 @@ public class Product {
     private String brandID;
     private String categoryID;
     private int year;
-    private double price;
+    private int price;
 
     public Product(String id) {
         this.id = id;
     }
 
-    public Product(String id, String name, String brandID, String categoryID, int year, double price) {
+    public Product(String id, String name, String brandID, String categoryID, int year, int price) {
         this.id = id;
         this.name = name;
         this.brandID = brandID;
@@ -62,7 +62,7 @@ public class Product {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

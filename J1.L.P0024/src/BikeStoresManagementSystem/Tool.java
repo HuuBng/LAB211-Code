@@ -39,6 +39,32 @@ public class Tool {
         return sc.nextLine().trim();
     }
 
+    public static int readInt(String prompt, String type) {
+        Pattern inputPattern = Pattern.compile("\\d+");
+        String input;
+        do {
+            input = readStr(prompt);
+            if (!inputPattern.matcher(input).find()) {
+                System.err.println("Please enter a valid " + type);
+            }
+        } while (!inputPattern.matcher(input).find());
+
+        return (int) Math.floor(Double.parseDouble(input));
+    }
+
+    public static int readInt(String prompt) {
+        Pattern inputPattern = Pattern.compile("\\d+");
+        String input;
+        do {
+            input = readStr(prompt);
+            if (!inputPattern.matcher(input).find()) {
+                System.err.println("Please enter a valid number");
+            }
+        } while (!inputPattern.matcher(input).find());
+
+        return (int) Math.floor(Double.parseDouble(input));
+    }
+
     /**
      * Automatically generates an increasing code.
      *
@@ -53,17 +79,7 @@ public class Tool {
     }
 
     public static String generateCodeFromStr() {
-        Pattern inputPattern = Pattern.compile("\\d+");
-        String input;
-        do {
-            input = readStr("Enter ID number");
-            if (!inputPattern.matcher(input).find()) {
-                System.err.println("Please enter a valid ID number");
-            }
-        } while (!inputPattern.matcher(input).find());
-
-        int curNum = Integer.parseInt(input);
-
+        int curNum = readInt("Enter ID number", "ID number");
         return generateCode("P", 3, curNum);
     }
 }

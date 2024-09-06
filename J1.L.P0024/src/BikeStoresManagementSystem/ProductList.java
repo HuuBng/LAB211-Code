@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
-import static BikeStoresManagementSystem.Tool.generateCodeFromStr;
-import static BikeStoresManagementSystem.Tool.readStr;
+import static BikeStoresManagementSystem.Tool.*;
 
 public class ProductList extends ArrayList<Product> {
 
@@ -143,16 +142,16 @@ public class ProductList extends ArrayList<Product> {
 
         int year;
         do {
-            year = Integer.parseInt(readStr("Enter YEAR"));
+            year = readInt("Enter YEAR");
             if (year < 1000 || year > 9999) {
                 System.err.println("Please enter a valid YEAR");
             }
         } while (year < 1000 || year > 9999);
         prod.setYear(year);
 
-        double price;
+        int price;
         do {
-            price = Double.parseDouble(readStr("Enter PRICE"));
+            price = readInt("Enter PRICE");
             if (price < 0) {
                 System.err.println("Please enter a valid PRICE");
             }
@@ -243,7 +242,7 @@ public class ProductList extends ArrayList<Product> {
 
         String price = readStr("Enter PRICE");
         if (!price.isEmpty()) {
-            double pr = Double.parseDouble(price);
+            int pr = (int) Math.floor(Double.parseDouble(price));
             if (pr > 0) {
                 pList.get(index).setPrice(pr);
                 System.out.println("Update SUCCESS");
@@ -322,7 +321,7 @@ public class ProductList extends ArrayList<Product> {
                 product.setBrandID(data[2]);
                 product.setCategoryID(data[3]);
                 product.setYear(Integer.parseInt(data[4]));
-                product.setPrice(Double.parseDouble(data[5]));
+                product.setPrice(Integer.parseInt(data[5]));
                 pfList.add(product);
             }
         } catch (FileNotFoundException e) {
