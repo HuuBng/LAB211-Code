@@ -261,6 +261,8 @@ public class RAMList extends ArrayList<RAMItem> {
     }
 
     public void searchByBus() {
+
+        // Import all BUS speed
         TreeSet<Integer> busSpeed = new TreeSet<>();
         for (RAMModule x : modules) {
             for (String str : x.getBus()) {
@@ -268,7 +270,7 @@ public class RAMList extends ArrayList<RAMItem> {
             }
         }
 
-
+        // Display and check BUS speed
         System.out.println("Available BUS speed");
         busSpeed.forEach((tmp) -> System.out.println(tmp + "MHz"));
 
@@ -300,12 +302,12 @@ public class RAMList extends ArrayList<RAMItem> {
 
     public void searchByBrand() {
         String brand = readStr("Enter BRAND");
-
         for (RAMItem x : rList) {
             if (x.getBrand().equalsIgnoreCase(brand)) {
                 System.out.println(x.getCode() + ", " + x.getBrand() + ", " + x.getProdDate() + ", " + x.getQuantity());
             }
         }
     }
+
 
 }
