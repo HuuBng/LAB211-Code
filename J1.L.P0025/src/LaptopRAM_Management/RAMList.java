@@ -6,6 +6,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 import static LaptopRAM_Management.Tool.*;
 
@@ -114,22 +115,87 @@ public class RAMList extends ArrayList<RAMItem> {
     }
 
     /**
-     * Create product and then store into list
+     * Display available RAM module type
      */
-    public void createProduct() {
-
-        // Display type
+    private void displayType() {
         System.out.println("Available RAM module types: ");
         for (RAMModule x : modules) {
             System.out.println(x.getType());
         }
+    }
+
+    /**
+     * Display available BUS speed for {@code type}
+     *
+     * @param type to display available speed
+     */
+    private void displayBus(String type) {
+        System.out.println("Available BUS speed for " + type + ":");
+        for (RAMModule x : modules) {
+            if (x.getType().equals(type)) {
+                System.out.println(Arrays.toString(x.getBus()).replaceAll("MHz", ""));
+            }
+        }
+    }
+
+    /**
+     * Get {@code type} of RAM module
+     *
+     * @return {@code type} of RAM module
+     */
+    private String getType() {
+        displayType();
         String type;
         do {
-            type = readStr("Enter RAM module TYPE");
+            type = readStr("Enter RAM module TYPE").toUpperCase();
             if (!isValidType(type)) {
                 System.err.println("Please enter a valid TYPE");
             }
         } while (!isValidType(type));
+        return type;
+    }
+
+    /**
+     * Get {@code code} of RAM module
+     *
+     * @param type to get code
+     * @return {@code code} of RAM module
+     */
+    private String getCode(String type) {
+        String code;
+        do {
+            code = generateCodeFromStr(type);
+            if (isUniqueCode(code)) {
+                System.err.println("Please enter a valid CODE");
+            }
+        } while (isUniqueCode(code));
+        return code;
+    }
+
+    /**
+     * Get {@code bus} of {@code type} RAM module
+     *
+     * @param type to get BUS speed
+     * @return {@code bus} speed of {@code type}
+     */
+    private String getBus(String type) {
+        displayBus(type);
+        String bus;
+        do {
+            bus = generateBusFromStr();
+            if (!isValidBus(type, bus)) {
+                System.err.println("Please enter a valid BUS speed");
+            }
+        } while (!isValidBus(type, bus));
+        return bus;
+    }
+
+    /**
+     * Create product and then store into list
+     */
+    public void createProduct() {
+
+        String type = getType();
 
         String code;
         do {
@@ -140,21 +206,7 @@ public class RAMList extends ArrayList<RAMItem> {
         } while (!isUniqueCode(code));
         RAMItem item = new RAMItem(type, code);
 
-        // Display bus speed
-        System.out.println("Available BUS speed for " + type + ":");
-        for (RAMModule x : modules) {
-            if (x.getType().equals(type)) {
-                System.out.println(Arrays.toString(x.getBus()).replaceAll("MHz", ""));
-            }
-        }
-        String bus;
-        do {
-            bus = generateBusFromStr();
-            if (!isValidBus(type, bus)) {
-                System.err.println("Please enter a valid BUS speed");
-            }
-        } while (!isValidBus(type, bus));
-        item.setBus(bus);
+        item.setBus(getBus(type));
 
         String brand;
         do {
@@ -199,5 +251,61 @@ public class RAMList extends ArrayList<RAMItem> {
         System.out.println("Added!!!");
     }
 
+    public void searchByType() {
+        String type = getType();
+        for (RAMItem x : rList) {
+            if (x.getType().equals(type)) {
+                System.out.println(x.getCode() + ", " + x.getType() + ", " + x.getProdDate() + ", " + x.getQuantity());
+            }
+        }
+    }
+
+    public void searchByBus() {
+        TreeSet<Integer> busSpeed = new TreeSet<>();
+        for (RAMModule x : modules) {
+            for (String str : x.getBus()) {
+                busSpeed.add(Integer.parseInt(str.replaceAll("\\D+", "")));
+            }
+        }
+
+
+        System.out.println("Available BUS speed");
+        busSpeed.forEach((tmp) -> System.out.println(tmp + "MHz"));
+
+        String bus;
+        boolean flag = true;
+        do {
+            bus = generateBusFromStr();
+
+            for (int x : busSpeed) {
+                if (x == Integer.parseInt(bus.replaceAll("\\D+", ""))) {
+                    flag = false;
+                    break;
+                }
+            }
+
+            if (flag) {
+                System.err.println("Please enter a valid BUS speed");
+            }
+
+        } while (flag);
+
+        for (RAMItem x : rList) {
+            if (x.getBus().equals(bus)) {
+                System.out.println(x.getCode() + ", " + x.getBus() + ", " + x.getProdDate() + ", " + x.getQuantity());
+            }
+        }
+
+    }
+
+    public void searchByBrand() {
+        String brand = readStr("Enter BRAND");
+
+        for (RAMItem x : rList) {
+            if (x.getBrand().equalsIgnoreCase(brand)) {
+                System.out.println(x.getCode() + ", " + x.getBrand() + ", " + x.getProdDate() + ", " + x.getQuantity());
+            }
+        }
+    }
 
 }

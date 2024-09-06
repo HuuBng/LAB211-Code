@@ -43,6 +43,22 @@ public class RAMManagementSystem {
                     System.out.println("Exiting!!!");
                     break;
                 case 2:
+                    do {
+                        switch (int_menu("Search by TYPE", "Search by BUS", "Search by BRAND")) {
+                            case 1:
+                                ramList.searchByType();
+                                break;
+                            case 2:
+                                ramList.searchByBus();
+                                break;
+                            case 3:
+                                ramList.searchByBrand();
+                                break;
+                            default:
+                                System.err.println("Please enter a valid choice");
+                        }
+                    } while (exitChoice("Search again", "Exit"));
+                    System.out.println("Exiting!!!");
                     break;
                 case 3:
                     break;
