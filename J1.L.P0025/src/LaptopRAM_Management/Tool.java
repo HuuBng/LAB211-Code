@@ -8,6 +8,16 @@ public class Tool {
 
     public static final Scanner sc = new Scanner(System.in);
 
+    public static void menu(Object... opts) {
+
+        int N = opts.length;
+
+        for (int i = 0; i < N; i++) {
+            System.out.println((i + 1) + ". " + opts[i].toString());
+        }
+        
+    }
+
     public static int int_menu(Object... opts) {
 
         int N = opts.length;
