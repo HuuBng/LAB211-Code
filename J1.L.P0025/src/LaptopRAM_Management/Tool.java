@@ -8,6 +8,17 @@ public class Tool {
 
     public static final Scanner sc = new Scanner(System.in);
 
+    public static int int_menu(Object... opts) {
+
+        int N = opts.length;
+
+        for (int i = 0; i < N; i++) {
+            System.out.println((i + 1) + ". " + opts[i].toString());
+        }
+
+        return readInt("Please choose an option: 1..." + N + ": ");
+    }
+
     public static int int_menu(ArrayList<String> opts) {
 
         int N = opts.size();
@@ -38,6 +49,8 @@ public class Tool {
             }
         } while (!inputPattern.matcher(input).find());
 
+        input = input.replaceAll("\\D+", "");
+
         return (int) Math.floor(Double.parseDouble(input));
     }
 
@@ -50,6 +63,8 @@ public class Tool {
                 System.err.println("Please enter a valid number");
             }
         } while (!inputPattern.matcher(input).find());
+
+        input = input.replaceAll("\\D+", "");
 
         return (int) Math.floor(Double.parseDouble(input));
     }
@@ -67,5 +82,11 @@ public class Tool {
     public static String generateBusFromStr() {
         int num = readInt("Enter BUS speed", "BUS speed");
         return num + "MHz";
+    }
+
+    public static boolean exitChoice(Object... opts) {
+        System.out.println("Do you want to: ");
+        int choice = int_menu(opts);
+        return choice == 1;
     }
 }
