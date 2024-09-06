@@ -26,6 +26,11 @@ public class RAMItem {
         this.active = active;
     }
 
+    public RAMItem(String type, String code) {
+        this.type = type;
+        this.code = code;
+    }
+
     public String getCode() {
         return code;
     }
