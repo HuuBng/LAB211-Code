@@ -156,20 +156,39 @@ public class RAMList extends ArrayList<RAMItem> {
     }
 
     /**
-     * Get {@code code} of RAM module
+     * Get position of {@code code}
      *
-     * @param type to get code
-     * @return {@code code} of RAM module
+     * @return position of {@code code} in list. {@code -1} if code not found in list
      */
-    private String getCode(String type) {
+    private int getCodePos() {
+        if (rList.isEmpty()) {
+            return -2;
+        }
+
+        // Display CODE
+        System.out.println("Available CODE: ");
+        rList.forEach((tmp) -> System.out.println(tmp.getCode()));
+
+        // Get and validate CODE
         String code;
+        boolean flag = true;
+        int index;
         do {
-            code = generateCodeFromStr(type);
-            if (isUniqueCode(code)) {
+            index = -1;
+            code = readStr("Enter CODE").toUpperCase();
+            for (RAMItem x : rList) {
+                index++;
+                if (x.getCode().equals(code)) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
                 System.err.println("Please enter a valid CODE");
             }
-        } while (isUniqueCode(code));
-        return code;
+        } while (flag);
+
+        return index;
     }
 
     /**
@@ -312,28 +331,15 @@ public class RAMList extends ArrayList<RAMItem> {
     public void updateProduct() {
         // TODO: Test this
 
-        // Display CODE
-        System.out.println("Available CODE: ");
-        rList.forEach((tmp) -> System.out.println(tmp.getCode()));
+        int index = getCodePos();
 
-        // Get and validate CODE
-        String code;
-        boolean flag = true;
-        int index;
-        do {
-            index = -1;
-            code = readStr("Enter CODE").toUpperCase();
-            for (RAMItem x : rList) {
-                index++;
-                if (x.getCode().equals(code)) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag) {
-                System.err.println("Please enter a valid CODE");
-            }
-        } while (flag);
+        if (index == -1) {
+            System.out.println("Error getting CODE pos");
+            return;
+        } else if (index == -2) {
+            System.out.println("Empty list");
+            return;
+        }
 
         RAMItem xRAM = rList.get(index);
 
@@ -357,7 +363,7 @@ public class RAMList extends ArrayList<RAMItem> {
 
         // Generate new CODE to check for existing CODE
         String prefix = "RAM_" + oldType + "_";
-        int intCode = getNumberInCode(code, prefix);
+        int intCode = getNumberInCode(xRAM.getCode(), prefix);
         String tmpCode = generateCodeFromStr(xRAM.getType(), intCode);
 
         if (!isUniqueCode(tmpCode)) {
@@ -372,8 +378,7 @@ public class RAMList extends ArrayList<RAMItem> {
         }
 
         if (isUniqueCode(tmpCode)) {
-            code = tmpCode;
-            xRAM.setCode(code);
+            xRAM.setCode(tmpCode);
         }
 
         // Get and update BUS if BUS not blank
@@ -419,6 +424,31 @@ public class RAMList extends ArrayList<RAMItem> {
         }
 
         rList.set(index, xRAM);
+    }
 
+    public void deleteProduct() {
+
+        int index = getCodePos();
+
+        if (index == -1) {
+            System.out.println("Error getting CODE pos");
+            return;
+        } else if (index == -2) {
+            System.out.println("Empty list");
+            return;
+        }
+
+        RAMItem xRAM = rList.get(index);
+
+        System.out.println("Do you want to DELETE " + xRAM.getCode() + "?");
+        int choice = int_menu("Yes", "No");
+        if (choice == 1) {
+            xRAM.setActive(false);
+            System.out.println("DELETE success");
+        } else {
+            System.out.println("DELETE aborted");
+        }
+
+        rList.set(index, xRAM);
     }
 }

@@ -43,6 +43,10 @@ public class RAMManagementSystem {
                     System.out.println("Exiting!!!");
                     break;
                 case 2:
+                    if (ramList.isEmpty()) {
+                        System.out.println("Empty list");
+                        break;
+                    }
                     do {
                         switch (int_menu("Search by TYPE", "Search by BUS", "Search by BRAND")) {
                             case 1:
@@ -67,6 +71,9 @@ public class RAMManagementSystem {
                     System.out.println("Exiting!!!");
                     break;
                 case 4:
+                    do {
+                        ramList.deleteProduct();
+                    } while (exitChoice("Delete another", "Exit"));
                     break;
                 case 5:
                     break;
