@@ -4,17 +4,13 @@ import java.time.YearMonth;
 
 public class RAMItem {
 
-    private final String code;
+    private String code;
     private String type;
     private String bus;
     private String brand;
     private int quantity;
     private YearMonth prodDate;
     private boolean active;
-
-    public RAMItem(String code) {
-        this.code = code;
-    }
 
     public RAMItem(String type, String code, String bus, String brand, int quantity, YearMonth prodDate, boolean active) {
         this.type = type;
@@ -33,6 +29,10 @@ public class RAMItem {
 
     public String getCode() {
         return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getType() {
