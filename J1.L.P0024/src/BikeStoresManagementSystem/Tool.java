@@ -38,6 +38,8 @@ public class Tool {
             }
         } while (!inputPattern.matcher(input).find());
 
+        input = input.replaceAll("\\D+", "");
+
         return (int) Math.floor(Double.parseDouble(input));
     }
 
@@ -50,6 +52,8 @@ public class Tool {
                 System.err.println("Please enter a valid number");
             }
         } while (!inputPattern.matcher(input).find());
+
+        input = input.replaceAll("\\D+", "");
 
         return (int) Math.floor(Double.parseDouble(input));
     }

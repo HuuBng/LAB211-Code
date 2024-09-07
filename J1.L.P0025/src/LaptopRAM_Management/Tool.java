@@ -15,7 +15,7 @@ public class Tool {
         for (int i = 0; i < N; i++) {
             System.out.println((i + 1) + ". " + opts[i].toString());
         }
-        
+
     }
 
     public static int int_menu(Object... opts) {
@@ -79,6 +79,14 @@ public class Tool {
         return (int) Math.floor(Double.parseDouble(input));
     }
 
+    public static int readIntFromStr(String input) {
+        input = input.replaceAll("\\D+", "");
+        if (input.isEmpty()) {
+            return -1;
+        } else
+            return (int) Math.floor(Double.parseDouble(input));
+    }
+
     public static String generateCode(String prefix, int length, int curNumber) {
         String formatStr = "%0" + length + "d";
         return prefix + String.format(formatStr, curNumber);
@@ -86,6 +94,10 @@ public class Tool {
 
     public static String generateCodeFromStr(String type) {
         int curNum = readInt("Enter CODE number", "CODE number");
+        return generateCode("RAM_" + type + "_", 4, curNum);
+    }
+
+    public static String generateCodeFromStr(String type, int curNum) {
         return generateCode("RAM_" + type + "_", 4, curNum);
     }
 
@@ -98,5 +110,9 @@ public class Tool {
         System.out.println("Do you want to: ");
         int choice = int_menu(opts);
         return choice == 1;
+    }
+
+    public static int getNumberInCode(String code, String prefix) {
+        return Integer.parseInt(code.substring(prefix.length()));
     }
 }
