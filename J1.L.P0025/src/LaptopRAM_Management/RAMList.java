@@ -129,7 +129,7 @@ public class RAMList extends ArrayList<RAMItem> {
      *
      * @param type to display available speed
      */
-    private void displayBus(String type) {
+    private void displayBusForType(String type) {
         System.out.println("Available BUS speed for " + type + ":");
         for (RAMModule x : modules) {
             if (x.getType().equals(type)) {
@@ -179,7 +179,7 @@ public class RAMList extends ArrayList<RAMItem> {
      * @return {@code bus} speed of {@code type}
      */
     private String getBus(String type) {
-        displayBus(type);
+        displayBusForType(type);
         String bus;
         do {
             bus = generateBusFromStr();
@@ -309,5 +309,116 @@ public class RAMList extends ArrayList<RAMItem> {
         }
     }
 
+    public void updateProduct() {
+        // TODO: Test this
 
+        // Display CODE
+        System.out.println("Available CODE: ");
+        rList.forEach((tmp) -> System.out.println(tmp.getCode()));
+
+        // Get and validate CODE
+        String code;
+        boolean flag = true;
+        int index;
+        do {
+            index = -1;
+            code = readStr("Enter CODE").toUpperCase();
+            for (RAMItem x : rList) {
+                index++;
+                if (x.getCode().equals(code)) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                System.err.println("Please enter a valid CODE");
+            }
+        } while (flag);
+
+        RAMItem xRAM = rList.get(index);
+
+        // Get and update TYPE if TYPE is not blank
+        displayType();
+        String oldType = xRAM.getType();
+        String newType;
+        do {
+            newType = readStr("Enter RAM module TYPE").toUpperCase();
+            if (newType.isEmpty()) {
+                break;
+            }
+            if (!isValidType(newType)) {
+                System.err.println("Please enter a valid TYPE");
+            }
+        } while (!isValidType(newType));
+
+        if (!newType.isEmpty() && isValidType(newType)) {
+            xRAM.setType(newType);
+        }
+
+        // Generate new CODE to check for existing CODE
+        String prefix = "RAM_" + oldType + "_";
+        int intCode = getNumberInCode(code, prefix);
+        String tmpCode = generateCodeFromStr(xRAM.getType(), intCode);
+
+        if (!isUniqueCode(tmpCode)) {
+            System.err.println("The CODE is already exist");
+        }
+
+        while (!isUniqueCode(tmpCode)) {
+            tmpCode = generateCodeFromStr(newType);
+            if (!isUniqueCode(tmpCode)) {
+                System.err.println("Please enter a unique CODE");
+            }
+        }
+
+        if (isUniqueCode(tmpCode)) {
+            code = tmpCode;
+            xRAM.setCode(code);
+        }
+
+        // Get and update BUS if BUS not blank
+        displayBusForType(xRAM.getType());
+        String newBus;
+        do {
+            newBus = readStr("Enter BUS speed");
+            if (newBus.isEmpty()) {
+                break;
+            }
+            newBus = newBus + "MHz";
+            if (!isValidBus(xRAM.getType(), newBus)) {
+                System.err.println("Please enter a valid BUS speed");
+            }
+        } while (!isValidBus(xRAM.getType(), newBus));
+
+        if (!newBus.isEmpty() && isValidBus(xRAM.getType(), newBus)) {
+            xRAM.setBus(newBus);
+        }
+
+        // Get and update BRAND if BRAND is not blank
+        String newBrand = readStr("Enter BRAND");
+        if (!newBrand.isEmpty()) {
+            xRAM.setBrand(newBrand);
+        }
+
+        // Get and update QUANTITY if QUANTITY is not blank
+        String newQuantity;
+        int intQuantity = -1;
+        do {
+            newQuantity = readStr("Enter QUANTITY");
+            if (newQuantity.isEmpty()) {
+                break;
+            }
+            intQuantity = readIntFromStr(newQuantity);
+            if (intQuantity <= 0) {
+                System.err.println("Please enter a valid NUMBER");
+            }
+        } while (intQuantity <= 0);
+
+        if (!newQuantity.isEmpty()) {
+            xRAM.setQuantity(intQuantity);
+        }
+
+        rList.set(index, xRAM);
+
+    }
 }

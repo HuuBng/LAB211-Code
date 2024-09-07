@@ -61,6 +61,10 @@ public class RAMManagementSystem {
                     System.out.println("Exiting!!!");
                     break;
                 case 3:
+                    do {
+                        ramList.updateProduct();
+                    } while (exitChoice("Update another", "Exit"));
+                    System.out.println("Exiting!!!");
                     break;
                 case 4:
                     break;
