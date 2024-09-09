@@ -304,7 +304,7 @@ public class ProductList extends ArrayList<Product> {
         } catch (IOException e) {
             System.err.println("Error writing file: " + filename);
         } catch (Exception e) {
-            System.err.println("ErrBrandWrite: " + e);
+            System.err.println("Error: " + filename + " " + e);
         }
     }
 

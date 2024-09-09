@@ -3,6 +3,7 @@ package BikeStoresManagementSystem;
 import java.util.ArrayList;
 
 import static BikeStoresManagementSystem.Tool.int_menu;
+import static LaptopRAM_Management.Tool.exitChoice;
 
 public class ProductManagement {
 
@@ -42,22 +43,34 @@ public class ProductManagement {
             System.out.println();
             switch (choice) {
                 case 1:
-                    prodList.createProduct();
+                    do {
+                        prodList.createProduct();
+                    } while (exitChoice("Add another", "Exit"));
                     break;
                 case 2:
-                    prodList.searchNamePartial();
+                    do {
+                        prodList.searchNamePartial();
+                    } while (exitChoice("Search again", "Exit"));
                     break;
                 case 3:
-                    prodList.updateProduct();
+                    do {
+                        prodList.updateProduct();
+                    } while (exitChoice("Update another", "Exit"));
                     break;
                 case 4:
-                    prodList.deleteProduct();
+                    do {
+                        prodList.deleteProduct();
+                    } while (exitChoice("Delete another", "Exit"));
                     break;
                 case 5:
-                    prodList.saveProductsToFile(pFile);
+                    do {
+                        prodList.saveProductsToFile(pFile);
+                    } while (exitChoice("Save again", "Exit"));
                     break;
                 case 6:
-                    prodList.displayProductInfo(pFile);
+                    do {
+                        prodList.displayProductInfo(pFile);
+                    } while (exitChoice("Display again", "Exit"));
                     break;
                 default:
                     System.out.println("Exiting!!!");

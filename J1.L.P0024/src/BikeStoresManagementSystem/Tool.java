@@ -8,6 +8,17 @@ public class Tool {
 
     public static final Scanner sc = new Scanner(System.in);
 
+    public static int int_menu(Object... opts) {
+
+        int N = opts.length;
+
+        for (int i = 0; i < N; i++) {
+            System.out.println((i + 1) + ". " + opts[i].toString());
+        }
+
+        return readInt("Please choose an option: 1..." + N + ": ");
+    }
+
     public static int int_menu(ArrayList<String> opts) {
 
         int N = opts.size();
@@ -74,5 +85,11 @@ public class Tool {
     public static String generateCodeFromStr() {
         int curNum = readInt("Enter ID number", "ID number");
         return generateCode("P", 3, curNum);
+    }
+
+    public static boolean exitChoice(Object... opts) {
+        System.out.println("Do you want to: ");
+        int choice = int_menu(opts);
+        return choice == 1;
     }
 }
