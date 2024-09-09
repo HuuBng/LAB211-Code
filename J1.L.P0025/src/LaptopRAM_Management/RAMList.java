@@ -1,12 +1,10 @@
 package LaptopRAM_Management;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.TreeSet;
+import java.util.*;
 
 import static LaptopRAM_Management.Tool.*;
 
@@ -344,6 +342,7 @@ public class RAMList extends ArrayList<RAMItem> {
         RAMItem xRAM = rList.get(index);
 
         // Get and update TYPE if TYPE is not blank
+        boolean typeChange = false;
         displayType();
         String oldType = xRAM.getType();
         String newType;
@@ -359,27 +358,32 @@ public class RAMList extends ArrayList<RAMItem> {
 
         if (!newType.isEmpty() && isValidType(newType)) {
             xRAM.setType(newType);
+            typeChange = true;
         }
 
         // Generate new CODE to check for existing CODE
-        String prefix = "RAM_" + oldType + "_";
-        int intCode = getNumberInCode(xRAM.getCode(), prefix);
-        String tmpCode = generateCodeFromStr(xRAM.getType(), intCode);
+        String tmpCode = xRAM.getCode();
+        if (typeChange) {
+            String prefix = "RAM_" + oldType + "_";
+            int intCode = getNumberInCode(xRAM.getCode(), prefix);
+            tmpCode = generateCodeFromStr(xRAM.getType(), intCode);
 
-        if (!isUniqueCode(tmpCode)) {
-            System.err.println("The CODE is already exist");
-        }
-
-        while (!isUniqueCode(tmpCode)) {
-            tmpCode = generateCodeFromStr(newType);
             if (!isUniqueCode(tmpCode)) {
-                System.err.println("Please enter a unique CODE");
+                System.err.println("The CODE is already exist");
+            }
+
+            while (!isUniqueCode(tmpCode)) {
+                tmpCode = generateCodeFromStr(newType);
+                if (!isUniqueCode(tmpCode)) {
+                    System.err.println("Please enter a unique CODE");
+                }
+            }
+
+            if (isUniqueCode(tmpCode)) {
+                xRAM.setCode(tmpCode);
             }
         }
 
-        if (isUniqueCode(tmpCode)) {
-            xRAM.setCode(tmpCode);
-        }
 
         // Get and update BUS if BUS not blank
         displayBusForType(xRAM.getType());
@@ -450,5 +454,52 @@ public class RAMList extends ArrayList<RAMItem> {
         }
 
         rList.set(index, xRAM);
+    }
+
+    public void displayAllItem() {
+        // TODO: Test this
+        rList.sort((o1, o2) -> {
+            int int_o1 = Integer.parseInt(o1.getBus().replaceAll("\\D+", ""));
+            int in_o2 = Integer.parseInt(o2.getBus().replaceAll("\\D+", ""));
+            if (o1.getType().compareTo(o2.getType()) != 0) {
+                return o1.getType().compareTo(o2.getType());
+            } else if (int_o1 - in_o2 != 0) {
+                return int_o1 - in_o2;
+            } else {
+                return o1.getBrand().compareTo(o2.getBrand());
+            }
+        });
+
+        for (RAMItem x : rList) {
+            if (x.isActive()) {
+                System.out.println(x);
+            }
+        }
+    }
+
+    public void saveToFile(String filename) {
+        // TODO: Test
+
+        if (rList.isEmpty()) {
+            System.out.println("Empty list");
+        }
+
+        try (ObjectOutputStream output = new ObjectOutputStream(Files.newOutputStream(Paths.get(filename)))) {
+            output.writeObject(rList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            System.out.println("Saved!!!");
+        }
+    }
+
+    public void loadFromFile(String filename) {
+
+        try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(Paths.get(filename)))) {
+
+            rList = (ArrayList<RAMItem>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

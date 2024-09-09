@@ -2,7 +2,7 @@ package LaptopRAM_Management;
 
 import java.time.YearMonth;
 
-public class RAMItem {
+public class RAMItem implements java.io.Serializable {
 
     private String code;
     private String type;
@@ -85,6 +85,6 @@ public class RAMItem {
 
     @Override
     public String toString() {
-        return code + ", " + type + ", " + bus + ", " + brand + ", " + quantity + ", " + prodDate + ", " + active;
+        return code + ", " + type + ", " + bus + ", " + brand + ", " + quantity + ", " + prodDate;
     }
 }

@@ -12,6 +12,8 @@ public class RAMManagementSystem {
 
         String moduleFile = "J1.L.P0025/src/RAM_data.txt";
         ramList.loadRAMModules(moduleFile);
+        String RAMModules = "J1.L.P0025/src/RAMModules.dat";
+        ramList.loadFromFile(RAMModules);
 
         // menu
         ArrayList<String> opts = new ArrayList<>();
@@ -43,7 +45,7 @@ public class RAMManagementSystem {
                     System.out.println("Exiting!!!");
                     break;
                 case 2:
-                    if (ramList.isEmpty()) {
+                    if (ramList.rList.isEmpty()) {
                         System.out.println("Empty list");
                         break;
                     }
@@ -76,10 +78,17 @@ public class RAMManagementSystem {
                     } while (exitChoice("Delete another", "Exit"));
                     break;
                 case 5:
+                    do {
+                        ramList.displayAllItem();
+                    } while (exitChoice("Display again", "Exit"));
                     break;
                 case 6:
+                    do {
+                        ramList.saveToFile(RAMModules);
+                    } while (exitChoice("Save again", "Exit"));
                     break;
                 case 7:
+                    System.out.println("Quitting program!!!");
                     break;
                 default:
                     System.out.println("Please enter a valid option");
