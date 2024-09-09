@@ -327,7 +327,6 @@ public class RAMList extends ArrayList<RAMItem> {
     }
 
     public void updateProduct() {
-        // TODO: Test this
 
         int index = getCodePos();
 
@@ -359,6 +358,7 @@ public class RAMList extends ArrayList<RAMItem> {
         if (!newType.isEmpty() && isValidType(newType)) {
             xRAM.setType(newType);
             typeChange = true;
+            System.out.println("Update SUCCESS");
         }
 
         // Generate new CODE to check for existing CODE
@@ -381,9 +381,9 @@ public class RAMList extends ArrayList<RAMItem> {
 
             if (isUniqueCode(tmpCode)) {
                 xRAM.setCode(tmpCode);
+                System.out.println("Update SUCCESS");
             }
         }
-
 
         // Get and update BUS if BUS not blank
         displayBusForType(xRAM.getType());
@@ -401,12 +401,14 @@ public class RAMList extends ArrayList<RAMItem> {
 
         if (!newBus.isEmpty() && isValidBus(xRAM.getType(), newBus)) {
             xRAM.setBus(newBus);
+            System.out.println("Update SUCCESS");
         }
 
         // Get and update BRAND if BRAND is not blank
         String newBrand = readStr("Enter BRAND");
         if (!newBrand.isEmpty()) {
             xRAM.setBrand(newBrand);
+            System.out.println("Update SUCCESS");
         }
 
         // Get and update QUANTITY if QUANTITY is not blank
@@ -425,6 +427,19 @@ public class RAMList extends ArrayList<RAMItem> {
 
         if (!newQuantity.isEmpty()) {
             xRAM.setQuantity(intQuantity);
+            System.out.println("Update SUCCESS");
+        }
+
+        // Get and update active
+        int choice = -1;
+        if (!xRAM.isActive()) {
+            System.out.println("Do you want to activate " + xRAM.getCode() + "?");
+            choice = int_menu("Yes", "No");
+            if (choice == 1) {
+                xRAM.setActive(true);
+                System.out.println("Update SUCCESS");
+            }
+
         }
 
         rList.set(index, xRAM);
@@ -457,7 +472,6 @@ public class RAMList extends ArrayList<RAMItem> {
     }
 
     public void displayAllItem() {
-        // TODO: Test this
         rList.sort((o1, o2) -> {
             int int_o1 = Integer.parseInt(o1.getBus().replaceAll("\\D+", ""));
             int in_o2 = Integer.parseInt(o2.getBus().replaceAll("\\D+", ""));
@@ -478,7 +492,6 @@ public class RAMList extends ArrayList<RAMItem> {
     }
 
     public void saveToFile(String filename) {
-        // TODO: Test
 
         if (rList.isEmpty()) {
             System.out.println("Empty list");
@@ -494,9 +507,7 @@ public class RAMList extends ArrayList<RAMItem> {
     }
 
     public void loadFromFile(String filename) {
-
         try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(Paths.get(filename)))) {
-
             rList = (ArrayList<RAMItem>) input.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
