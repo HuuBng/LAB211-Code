@@ -11,7 +11,6 @@ public class ProductManagement {
 
         ProductList prodList = new ProductList();
 
-        /* TODO: Remove J1.L.P0024 when commit */
         String bFile = "J1.L.P0024/src/Brand.txt";
         String cFile = "J1.L.P0024/src/Category.txt";
         String pFile = "J1.L.P0024/src/Product.txt";

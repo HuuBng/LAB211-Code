@@ -309,6 +309,8 @@ public class ProductList extends ArrayList<Product> {
     }
 
     public void loadProduct(String filename) {
+        pfList = new ArrayList<>();
+
         try (Scanner scf = new Scanner(new File(filename))) {
 
             while (scf.hasNext()) {
