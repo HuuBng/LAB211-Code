@@ -3,7 +3,7 @@ package BikeStoresManagementSystem;
 import java.util.ArrayList;
 
 import static BikeStoresManagementSystem.Tool.int_menu;
-import static LaptopRAM_Management.Tool.exitChoice;
+import static BikeStoresManagementSystem.Tool.exitChoice;
 
 public class ProductManagement {
 
@@ -37,7 +37,6 @@ public class ProductManagement {
             System.out.println("|| Bike Stores Management System ||");
             System.out.println("||                               ||");
             System.out.println("||===============================||");
-
 
             choice = int_menu(opts);
             System.out.println();
