@@ -103,7 +103,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
         String duraStr;
         do {
             duraStr = readStr("Enter DURATION in week");
-            int duration = readIntFromStr(duraStr);
+            int duration = parseIntFromStr(duraStr);
             if (duration > 0 && duration <= 52) {
                 topic.setTopicDurationInWeek(duration);
                 break;

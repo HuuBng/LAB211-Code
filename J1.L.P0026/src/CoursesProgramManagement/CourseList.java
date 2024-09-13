@@ -2,6 +2,7 @@ package CoursesProgramManagement;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 import static CoursesProgramManagement.Tool.*;
@@ -11,7 +12,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
     public CourseList() {
     }
 
-    private boolean isNotUniqueTopicID(ArrayList<Topic> topics, String id) {
+    private boolean isNotUniqueTopicID(TopicList topics, String id) {
         for (Topic x : topics) {
             if (x.getTopicID().equals(id)) {
                 return true;
@@ -29,7 +30,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         return false;
     }
 
-    public void addCourse(ArrayList<Topic> topics) {
+    public void addCourse(TopicList topics) {
         String id;
         do {
             id = generateIDFromStr("course");
@@ -87,10 +88,12 @@ public class CourseList extends ArrayList<Course> implements Serializable {
 
         course.setTopicID(topicId);
 
+        course.setCourseStatus(Course.Status.ACTIVE);
+
         this.add(course);
     }
 
-    public void updateCourse(ArrayList<Topic> topics) {
+    public void updateCourse(TopicList topics) {
         String id;
         do {
             id = generateIDFromStr("course");
@@ -109,6 +112,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
 
         if (index == -1) {
             System.err.println("ID not found but pass check");
+            return;
         }
 
         Course course = this.get(index);
@@ -118,7 +122,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
             course.setCourseName(name);
         }
 
-        System.out.println("Course type ?");
+        System.out.println("Course status ?");
         int type = int_menu("Online", "Offline");
         if (type == 1) {
             course.setCourseType(Course.Type.ONLINE);
@@ -149,7 +153,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         String feeStr;
         do {
             feeStr = readStr("Enter TUITION_FEE");
-            int fee = readIntFromStr(feeStr);
+            int fee = parseIntFromStr(feeStr);
             if (fee >= 0) {
                 course.setTuitionFee(fee);
                 break;
@@ -169,6 +173,14 @@ public class CourseList extends ArrayList<Course> implements Serializable {
             }
         } while (!topicId.isEmpty());
 
+        System.out.println("Course status ?");
+        int status = int_menu("Active", "Inactive", "(blank)");
+        if (status == 1) {
+            course.setCourseStatus(Course.Status.ACTIVE);
+        } else if (status == 2) {
+            course.setCourseStatus(Course.Status.INACTIVE);
+        }
+
         System.out.println("OLD: " + this.get(index));
         System.out.println();
         System.out.println("NEW: " + course);
@@ -176,6 +188,63 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         this.set(index, course);
     }
 
-    public
+    public void deleteCourse() {
+        String id;
+        do {
+            id = generateIDFromStr("course");
+            if (!isNotUniqueID(id)) {
+                System.err.println("ID not found");
+            }
+        } while (!isNotUniqueID(id));
+
+        int index = -1;
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getCourseID().equals(id)) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            System.err.println("ID not found but pass check");
+            return;
+        }
+
+        System.out.println("Delete " + id + " ?");
+        int choice = int_menu("Yes", "No");
+        if (choice == 1) {
+            this.remove(index);
+            System.out.println("DELETE success");
+        } else if (choice == 2) {
+            System.out.println("DELETE canceled");
+        } else {
+            System.err.println("DELETE aborted");
+        }
+    }
+
+    public void displayCourses(LearnerList learners) {
+        CourseList cList = this;
+
+        cList.sort(Comparator.comparing(Course::getBeginDate));
+
+        for (Course x : cList) {
+            int incomeCount = 0;
+            int pass = 0;
+            int fail = 0;
+            for (Learner y : learners) {
+                if (y.getCourseID().equals(x.getCourseID())) {
+                    incomeCount++;
+                    if (y.getScore() >= 5) {
+                        pass++;
+                    } else {
+                        fail++;
+                    }
+                }
+            }
+
+            int income = x.getTuitionFee() * incomeCount;
+            System.out.println(x + ", pass: " + pass + ", fail: " + fail + ", incomes: " + income);
+        }
+    }
 
 }

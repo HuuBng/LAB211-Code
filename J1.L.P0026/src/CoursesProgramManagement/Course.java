@@ -10,6 +10,11 @@ public class Course implements Serializable {
         OFFLINE
     }
 
+    public enum Status {
+        ACTIVE,
+        INACTIVE
+    }
+
     private final String courseID;
     private String courseName;
     private Type courseType;
@@ -17,19 +22,10 @@ public class Course implements Serializable {
     private Date endDate;
     private int tuitionFee;
     private String topicID;
+    private Status courseStatus;
 
     public Course(String courseID) {
         this.courseID = courseID;
-    }
-
-    public Course(String courseID, String courseName, Course.Type courseType, Date beginDate, Date endDate, int tuitionFee, String topicID) {
-        this.courseID = courseID;
-        this.courseName = courseName;
-        this.courseType = courseType;
-        this.beginDate = beginDate;
-        this.endDate = endDate;
-        this.tuitionFee = tuitionFee;
-        this.topicID = topicID;
     }
 
     public String getCourseID() {
@@ -44,7 +40,7 @@ public class Course implements Serializable {
         this.courseName = courseName;
     }
 
-    public Course.Type getCourseType() {
+    public Type getCourseType() {
         return courseType;
     }
 
@@ -84,8 +80,17 @@ public class Course implements Serializable {
         this.topicID = topicID;
     }
 
+    public Status getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(Status courseStatus) {
+        this.courseStatus = courseStatus;
+    }
+
     @Override
     public String toString() {
-        return courseID + ", " + courseName + ", " + courseType + ", " + beginDate + ", " + endDate + ", " + tuitionFee + ", " + topicID;
+        return courseID + ", " + courseName + ", " + courseType + ", " + beginDate + ", " + endDate + ", " + tuitionFee + ", " + topicID + ", " + courseStatus;
     }
+
 }
