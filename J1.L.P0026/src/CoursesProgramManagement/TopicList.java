@@ -155,11 +155,23 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
     }
 
     public void displayALL() {
+        System.out.println(" === Topics ===");
+
         ArrayList<Topic> tList = this;
 
         tList.sort(Comparator.comparing(Topic::getTopicName));
 
         tList.forEach(System.out::println);
+    }
+
+    public void searchPartialName() {
+        String name = readStr("Enter NAME to search");
+        System.out.println();
+        for (Topic x : this) {
+            if (x.getTopicName().contains(name)) {
+                System.out.println(x);
+            }
+        }
     }
 
 }

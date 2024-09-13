@@ -30,6 +30,18 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         return false;
     }
 
+    private String getCourseID() {
+        String id;
+        do {
+            id = generateIDFromStr("course");
+            if (!isNotUniqueID(id)) {
+                System.err.println("ID not found");
+            }
+        } while (!isNotUniqueID(id));
+
+        return id;
+    }
+
     public void addCourse(TopicList topics) {
         String id;
         do {
@@ -94,13 +106,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
     }
 
     public void updateCourse(TopicList topics) {
-        String id;
-        do {
-            id = generateIDFromStr("course");
-            if (!isNotUniqueID(id)) {
-                System.err.println("ID not found");
-            }
-        } while (!isNotUniqueID(id));
+        String id = getCourseID();
 
         int index = -1;
         for (int i = 0; i < this.size(); i++) {
@@ -189,13 +195,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
     }
 
     public void deleteCourse() {
-        String id;
-        do {
-            id = generateIDFromStr("course");
-            if (!isNotUniqueID(id)) {
-                System.err.println("ID not found");
-            }
-        } while (!isNotUniqueID(id));
+        String id = getCourseID();
 
         int index = -1;
         for (int i = 0; i < this.size(); i++) {
@@ -244,6 +244,58 @@ public class CourseList extends ArrayList<Course> implements Serializable {
 
             int income = x.getTuitionFee() * incomeCount;
             System.out.println(x + ", pass: " + pass + ", fail: " + fail + ", incomes: " + income);
+        }
+    }
+
+    public void searchByTopic(TopicList topics, LearnerList learners) {
+        String id = getCourseID();
+        System.out.println();
+        for (Course x : this) {
+            if (!x.getTopicID().equals(id)) {
+                continue;
+            }
+
+            int incomeCount = 0;
+            int pass = 0;
+            int fail = 0;
+            for (Learner y : learners) {
+                if (y.getCourseID().equals(x.getCourseID())) {
+                    incomeCount++;
+                    if (y.getScore() >= 5) {
+                        pass++;
+                    } else {
+                        fail++;
+                    }
+                }
+            }
+
+            System.out.println(x + ", pass: " + pass + ", fail: " + fail);
+        }
+    }
+
+    public void searchPartialName(TopicList topics, LearnerList learners) {
+        String name = readStr("Enter NAME to search");
+        System.out.println();
+        for (Course x : this) {
+            if (!x.getCourseName().contains(name)) {
+                continue;
+            }
+
+            int incomeCount = 0;
+            int pass = 0;
+            int fail = 0;
+            for (Learner y : learners) {
+                if (y.getCourseID().equals(x.getCourseID())) {
+                    incomeCount++;
+                    if (y.getScore() >= 5) {
+                        pass++;
+                    } else {
+                        fail++;
+                    }
+                }
+            }
+
+            System.out.println(x + ", pass: " + pass + ", fail: " + fail);
         }
     }
 

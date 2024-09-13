@@ -20,7 +20,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         return false;
     }
 
-    private boolean isNotUniqueCourseID(ArrayList<Course> courses, String id) {
+    private boolean isNotUniqueCourseID(CourseList courses, String id) {
         for (Course x : courses) {
             if (x.getCourseID().equals(id)) {
                 return true;
@@ -29,7 +29,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         return false;
     }
 
-    public void addLearner(ArrayList<Course> courses) {
+    public void addLearner(CourseList courses) {
         String id;
         do {
             id = generateIDFromStr("learner");
