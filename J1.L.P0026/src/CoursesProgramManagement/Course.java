@@ -5,14 +5,14 @@ import java.util.Date;
 
 public class Course implements Serializable {
 
-    public enum courseType {
-        LONG,
-        SHORT
+    public enum Type {
+        ONLINE,
+        OFFLINE
     }
 
     private final String courseID;
     private String courseName;
-    private courseType courseType;
+    private Type courseType;
     private Date beginDate;
     private Date endDate;
     private int tuitionFee;
@@ -22,7 +22,7 @@ public class Course implements Serializable {
         this.courseID = courseID;
     }
 
-    public Course(String courseID, String courseName, Course.courseType courseType, Date beginDate, Date endDate, int tuitionFee, String topicID) {
+    public Course(String courseID, String courseName, Course.Type courseType, Date beginDate, Date endDate, int tuitionFee, String topicID) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.courseType = courseType;
@@ -44,11 +44,11 @@ public class Course implements Serializable {
         this.courseName = courseName;
     }
 
-    public Course.courseType getCourseType() {
+    public Course.Type getCourseType() {
         return courseType;
     }
 
-    public void setCourseType(Course.courseType courseType) {
+    public void setCourseType(Type courseType) {
         this.courseType = courseType;
     }
 

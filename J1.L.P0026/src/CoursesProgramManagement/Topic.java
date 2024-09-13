@@ -4,21 +4,21 @@ import java.io.Serializable;
 
 public class Topic implements Serializable {
 
-    public enum topicType {
-        ONLINE,
-        OFFLINE
+    public enum Type {
+        LONG,
+        SHORT
     }
 
     private final String topicID;
     private String topicName;
-    private topicType topicType;
+    private Type topicType;
     private int topicDurationInWeek;
 
     public Topic(String topicID) {
         this.topicID = topicID;
     }
 
-    public Topic(String topicID, String topicName, topicType topicType, int topicDurationInWeek) {
+    public Topic(String topicID, String topicName, Type topicType, int topicDurationInWeek) {
         this.topicID = topicID;
         this.topicName = topicName;
         this.topicType = topicType;
@@ -37,11 +37,11 @@ public class Topic implements Serializable {
         this.topicName = topicName;
     }
 
-    public Topic.topicType getTopicType() {
+    public Type getTopicType() {
         return topicType;
     }
 
-    public void setTopicType(Topic.topicType topicType) {
+    public void setTopicType(Type topicType) {
         this.topicType = topicType;
     }
 
