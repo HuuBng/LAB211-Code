@@ -11,8 +11,8 @@ public class CourseList extends ArrayList<Course> implements Serializable {
     public CourseList() {
     }
 
-    private boolean isNotUniqueTopicID(ArrayList<Topic> tList, String id) {
-        for (Topic x : tList) {
+    private boolean isNotUniqueTopicID(ArrayList<Topic> topics, String id) {
+        for (Topic x : topics) {
             if (x.getTopicID().equals(id)) {
                 return true;
             }
@@ -147,10 +147,9 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         }
 
         String feeStr;
-        int fee = course.getTuitionFee();
         do {
             feeStr = readStr("Enter TUITION_FEE");
-            fee = readIntFromStr(feeStr);
+            int fee = readIntFromStr(feeStr);
             if (fee >= 0) {
                 course.setTuitionFee(fee);
                 break;
@@ -159,7 +158,22 @@ public class CourseList extends ArrayList<Course> implements Serializable {
             }
         } while (!feeStr.isEmpty());
 
+        String topicId;
+        do {
+            topicId = generateIDFromStr("topic");
+            if (isNotUniqueTopicID(topics, topicId)) {
+                course.setTopicID(topicId);
+                break;
+            } else {
+                System.err.println("Please enter a valid TOPIC number");
+            }
+        } while (!topicId.isEmpty());
 
+        System.out.println("OLD: " + this.get(index));
+        System.out.println();
+        System.out.println("NEW: " + course);
+
+        this.set(index, course);
     }
 
 }
