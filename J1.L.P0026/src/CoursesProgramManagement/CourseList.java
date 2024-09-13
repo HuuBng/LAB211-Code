@@ -176,4 +176,6 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         this.set(index, course);
     }
 
+    public
+
 }
