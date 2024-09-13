@@ -11,7 +11,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
     public TopicList() {
     }
 
-    public boolean isNotUniqueID(String id) {
+    private boolean isNotUniqueID(String id) {
         for (Topic x : this) {
             if (x.getTopicID().equals(id)) {
                 return true;
