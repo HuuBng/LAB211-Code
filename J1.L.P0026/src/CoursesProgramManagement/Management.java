@@ -57,7 +57,7 @@ public class Management {
                 case 5:
                     break;
                 default:
-                    System.err.println("Please enter a valid number");
+                    System.out.println("ERROR: Please enter a valid number");
             }
         } while (choice != opts.size());
     }
@@ -99,7 +99,7 @@ public class Management {
                 case 5:
                     break;
                 default:
-                    System.err.println("Please enter a valid number");
+                    System.out.println("ERROR: Please enter a valid number");
             }
         } while (choice != opts.size());
     }
@@ -141,7 +141,7 @@ public class Management {
                 case 5:
                     break;
                 default:
-                    System.err.println("Please enter a valid number");
+                    System.out.println("ERROR: Please enter a valid number");
             }
         } while (choice != opts.size());
     }
@@ -178,14 +178,14 @@ public class Management {
                             case 3:
                                 break;
                             default:
-                                System.err.println("Please enter valid number");
+                                System.out.println("ERROR: Please enter valid number");
                         }
                     } while (choice2 != 3);
                     break;
                 case 3:
                     break;
                 default:
-                    System.err.println("Please enter a valid number");
+                    System.out.println("ERROR: Please enter a valid number");
             }
         } while (choice != opts.size());
     }

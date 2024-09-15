@@ -25,7 +25,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
         do {
             id = generateIDFromStr("topic");
             if (isNotUniqueID(id)) {
-                System.err.println("ID not unique");
+                System.out.println("ERROR: ID not unique");
             }
         } while (isNotUniqueID(id));
 
@@ -35,7 +35,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
         do {
             name = readStr("Enter TOPIC_NAME");
             if (name.isEmpty()) {
-                System.err.println("Name must not be empty");
+                System.out.println("ERROR: Name must not be empty");
             }
         } while (name.isEmpty());
         topic.setTopicName(name);
@@ -49,7 +49,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
             } else if (type == 2) {
                 topic.setTopicType(Topic.Type.SHORT);
             } else {
-                System.err.println("Please enter a valid number");
+                System.out.println("ERROR: Please enter a valid number");
             }
         } while (type < 1 || type > 2);
 
@@ -57,7 +57,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
         do {
             duration = readInt("Enter DURATION in week");
             if (duration <= 0 || duration > 52) {
-                System.err.println("Please enter a valid number");
+                System.out.println("ERROR: Please enter a valid number");
             }
         } while (duration <= 0 || duration > 52);
         topic.setTopicDurationInWeek(duration);
@@ -70,7 +70,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
         do {
             id = generateIDFromStr("topic");
             if (!isNotUniqueID(id)) {
-                System.err.println("ID not found");
+                System.out.println("ERROR: ID not found");
             }
         } while (!isNotUniqueID(id));
 
@@ -83,7 +83,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
         }
 
         if (index == -1) {
-            System.err.println("ID not found but pass check");
+            System.out.println("ERROR: ID not found but pass check");
             return;
         }
 
@@ -109,7 +109,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
                 topic.setTopicDurationInWeek(duration);
                 break;
             } else if (!duraStr.isEmpty()) {
-                System.err.println("Please enter a valid number");
+                System.out.println("ERROR: Please enter a valid number");
             }
         } while (!duraStr.isEmpty());
 
@@ -124,7 +124,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
         do {
             id = generateIDFromStr("topic");
             if (!isNotUniqueID(id)) {
-                System.err.println("ID not found");
+                System.out.println("ERROR: ID not found");
             }
         } while (!isNotUniqueID(id));
 
@@ -137,7 +137,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
         }
 
         if (index == -1) {
-            System.err.println("ID not found but pass check");
+            System.out.println("ERROR: ID not found but pass check");
             return;
         }
 
@@ -149,7 +149,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
         } else if (choice == 2) {
             System.out.println("DELETE canceled");
         } else {
-            System.err.println("DELETE aborted");
+            System.out.println("ERROR: DELETE aborted");
         }
     }
 

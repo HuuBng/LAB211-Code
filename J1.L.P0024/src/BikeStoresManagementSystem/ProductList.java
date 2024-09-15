@@ -36,7 +36,7 @@ public class ProductList extends ArrayList<Product> {
                 bList.add(brand);
             }
         } catch (FileNotFoundException e) {
-            System.err.println("FileNotFound: " + filename);
+            System.out.println("FileNotFound: " + filename);
             throw new RuntimeException(e);
         }
     }
@@ -53,7 +53,7 @@ public class ProductList extends ArrayList<Product> {
                 cList.add(category);
             }
         } catch (FileNotFoundException e) {
-            System.err.println("FileNotFound: " + filename);
+            System.out.println("FileNotFound: " + filename);
             throw new RuntimeException(e);
         }
     }
@@ -108,7 +108,7 @@ public class ProductList extends ArrayList<Product> {
         do {
             id = generateCodeFromStr();
             if ((!checkUniqueID(id))) {
-                System.err.println("Please enter a unique ID number");
+                System.out.println("Please enter a unique ID number");
             }
         } while (!checkUniqueID(id));
         Product prod = new Product(id);
@@ -117,7 +117,7 @@ public class ProductList extends ArrayList<Product> {
         do {
             name = readStr("Enter NAME");
             if (name.isEmpty()) {
-                System.err.println("Please enter a valid NAME");
+                System.out.println("Please enter a valid NAME");
             }
         } while (name.isEmpty());
         prod.setName(name);
@@ -126,7 +126,7 @@ public class ProductList extends ArrayList<Product> {
         do {
             brandID = readStr("Enter BRAND_ID").toUpperCase();
             if (!checkBrandID(brandID)) {
-                System.err.println("Please enter a valid BRAND_ID");
+                System.out.println("ERROR: Please enter a valid BRAND_ID");
             }
         } while (!checkBrandID(brandID));
         prod.setBrandID(brandID);
@@ -135,7 +135,7 @@ public class ProductList extends ArrayList<Product> {
         do {
             categoryID = readStr("Enter CATEGORY_ID").toUpperCase();
             if (!checkCategoryID(categoryID)) {
-                System.err.println("Please enter a valid CATEGORY_ID");
+                System.out.println("ERROR: Please enter a valid CATEGORY_ID");
             }
         } while (!checkCategoryID(categoryID));
         prod.setCategoryID(categoryID);
@@ -144,7 +144,7 @@ public class ProductList extends ArrayList<Product> {
         do {
             year = readInt("Enter YEAR");
             if (year < 1000 || year > 9999) {
-                System.err.println("Please enter a valid YEAR");
+                System.out.println("ERROR: Please enter a valid YEAR");
             }
         } while (year < 1000 || year > 9999);
         prod.setYear(year);
@@ -153,7 +153,7 @@ public class ProductList extends ArrayList<Product> {
         do {
             price = readInt("Enter PRICE");
             if (price < 0) {
-                System.err.println("Please enter a valid PRICE");
+                System.out.println("ERROR: Please enter a valid PRICE");
             }
         } while (price < 0);
         prod.setPrice(price);
@@ -173,7 +173,7 @@ public class ProductList extends ArrayList<Product> {
         }
 
         if (tmp.isEmpty()) {
-            System.err.println("There is no Product in list");
+            System.out.println("ERROR: There is no Product in list");
             return;
         }
 
@@ -184,7 +184,7 @@ public class ProductList extends ArrayList<Product> {
     public void updateProduct() {
         String id = generateCodeFromStr();
         if (checkUniqueID(id)) {
-            System.err.println("Product ID does not exist");
+            System.out.println("ERROR: Product ID does not exist");
             return;
         }
 
@@ -196,7 +196,7 @@ public class ProductList extends ArrayList<Product> {
         }
 
         if (index == -1) {
-            System.err.println("Product ID not found in list but pass check");
+            System.out.println("ERROR: Product ID not found in list but pass check");
             return;
         }
 
@@ -212,7 +212,7 @@ public class ProductList extends ArrayList<Product> {
                 pList.get(index).setBrandID(brandID);
                 System.out.println("Update SUCCESS");
             } else {
-                System.err.println("Invalid BRAND_ID");
+                System.out.println("ERROR: Invalid BRAND_ID");
                 System.out.println("Update FAIL");
             }
         }
@@ -223,7 +223,7 @@ public class ProductList extends ArrayList<Product> {
                 pList.get(index).setCategoryID(categoryID);
                 System.out.println("Update SUCCESS");
             } else {
-                System.err.println("Invalid CATEGORY_ID");
+                System.out.println("ERROR: Invalid CATEGORY_ID");
                 System.out.println("Update FAIL");
             }
         }
@@ -235,7 +235,7 @@ public class ProductList extends ArrayList<Product> {
                 pList.get(index).setYear(yr);
                 System.out.println("Update SUCCESS");
             } else {
-                System.err.println("Invalid YEAR");
+                System.out.println("ERROR: Invalid YEAR");
                 System.out.println("Update FAIL");
             }
         }
@@ -247,7 +247,7 @@ public class ProductList extends ArrayList<Product> {
                 pList.get(index).setPrice(pr);
                 System.out.println("Update SUCCESS");
             } else {
-                System.err.println("Invalid PRICE");
+                System.out.println("ERROR: Invalid PRICE");
                 System.out.println("Update FAIL");
             }
         }
@@ -257,7 +257,7 @@ public class ProductList extends ArrayList<Product> {
     public void deleteProduct() {
         String id = generateCodeFromStr();
         if (checkUniqueID(id)) {
-            System.err.println("Product ID does not exist");
+            System.out.println("ERROR: Product ID does not exist");
             return;
         }
 
@@ -269,7 +269,7 @@ public class ProductList extends ArrayList<Product> {
         }
 
         if (index == -1) {
-            System.err.println("Product ID not found in list but pass check");
+            System.out.println("ERROR: Product ID not found in list but pass check");
             return;
         }
 
@@ -280,7 +280,7 @@ public class ProductList extends ArrayList<Product> {
         } else if (choice.equalsIgnoreCase("n")) {
             System.out.println("Remove ABORTED");
         } else {
-            System.err.println("Invalid choice");
+            System.out.println("ERROR: Invalid choice");
             System.out.println("Remove FAIL");
         }
 
@@ -302,9 +302,9 @@ public class ProductList extends ArrayList<Product> {
 
             System.out.println("Done!!!");
         } catch (IOException e) {
-            System.err.println("Error writing file: " + filename);
+            System.out.println("ERROR: Writing file: " + filename);
         } catch (Exception e) {
-            System.err.println("Error: " + filename + " " + e);
+            System.out.println("ERROR: " + filename + " " + e);
         }
     }
 
@@ -327,7 +327,7 @@ public class ProductList extends ArrayList<Product> {
                 pfList.add(product);
             }
         } catch (FileNotFoundException e) {
-            System.err.println("FileNotFound: " + filename);
+            System.out.println("ERROR: FileNotFound " + filename);
             throw new RuntimeException(e);
         }
     }

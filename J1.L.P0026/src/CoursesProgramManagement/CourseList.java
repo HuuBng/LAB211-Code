@@ -35,7 +35,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         do {
             id = generateIDFromStr("course");
             if (!isNotUniqueID(id)) {
-                System.err.println("ID not found");
+                System.out.println("ERROR: ID not found");
             }
         } while (!isNotUniqueID(id));
 
@@ -47,7 +47,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         do {
             id = generateIDFromStr("topic");
             if (!isNotUniqueTopicID(tList, id)) {
-                System.err.println("ID not found");
+                System.out.println("ERROR: ID not found");
             }
         } while (!isNotUniqueTopicID(tList, id));
 
@@ -59,7 +59,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         do {
             id = generateIDFromStr("course");
             if (isNotUniqueID(id)) {
-                System.err.println("ID not unique");
+                System.out.println("ERROR: ID not unique");
             }
         } while (isNotUniqueID(id));
 
@@ -69,7 +69,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         do {
             name = readStr("Enter COURSE_NAME");
             if (name.isEmpty()) {
-                System.err.println("Name must not be empty");
+                System.out.println("ERROR: Name must not be empty");
             }
         } while (name.isEmpty());
         course.setCourseName(name);
@@ -83,7 +83,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
             } else if (type == 2) {
                 course.setCourseType(Course.Type.OFFLINE);
             } else {
-                System.err.println("Please enter a valid number");
+                System.out.println("ERROR: Please enter a valid number");
             }
         } while (type < 1 || type > 2);
 
@@ -97,7 +97,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         do {
             fee = readInt("Enter TUITION_FEE");
             if (fee < 0) {
-                System.err.println("Please enter a valid TUITION_FEE");
+                System.out.println("ERROR: Please enter a valid TUITION_FEE");
             }
         } while (fee < 0);
         course.setTuitionFee(fee);
@@ -107,6 +107,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
             topicId = generateIDFromStr("topic");
             if (!isNotUniqueTopicID(topics, topicId)) {
                 System.err.println("Please enter a valid TOPIC number");
+                System.out.println("ERROR: Please enter a valid TOPIC number");
             }
         } while (!isNotUniqueTopicID(topics, topicId));
 
@@ -129,7 +130,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         }
 
         if (index == -1) {
-            System.err.println("ID not found but pass check");
+            System.out.println("ERROR: ID not found but pass check");
             return;
         }
 
@@ -165,7 +166,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
             course.setBeginDate(begin);
             course.setEndDate(end);
         } else {
-            System.err.println("BEGIN_DATE must be before END_DATE || END_DATE must be after BEGIN_DATE");
+            System.out.println("ERROR: BEGIN_DATE must be before END_DATE || END_DATE must be after BEGIN_DATE");
         }
 
         String feeStr;
@@ -176,7 +177,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
                 course.setTuitionFee(fee);
                 break;
             } else {
-                System.err.println("Please enter a valid TUITION_FEE");
+                System.out.println("ERROR: Please enter a valid TUITION_FEE");
             }
         } while (!feeStr.isEmpty());
 
@@ -187,7 +188,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
                 course.setTopicID(topicId);
                 break;
             } else {
-                System.err.println("Please enter a valid TOPIC number");
+                System.out.println("ERROR: Please enter a valid TOPIC number");
             }
         } while (!topicId.isEmpty());
 
@@ -216,7 +217,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         }
 
         if (index == -1) {
-            System.err.println("ID not found but pass check");
+            System.out.println("ERROR: ID not found but pass check");
             return;
         }
 
@@ -228,7 +229,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         } else if (choice == 2) {
             System.out.println("DELETE canceled");
         } else {
-            System.err.println("DELETE aborted");
+            System.out.println("ERROR: DELETE aborted");
         }
     }
 

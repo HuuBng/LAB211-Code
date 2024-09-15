@@ -61,7 +61,7 @@ public class RAMManagementSystem {
                                 ramList.searchByBrand();
                                 break;
                             default:
-                                System.err.println("Please enter a valid choice");
+                                System.out.println("ERROR: Please enter a valid choice");
                         }
                     } while (exitChoice("Search again", "Exit"));
                     System.out.println("Exiting!!!");

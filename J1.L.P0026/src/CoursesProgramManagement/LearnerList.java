@@ -34,7 +34,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         do {
             id = generateIDFromStr("learner");
             if (isNotUniqueID(id)) {
-                System.err.println("ID not unique");
+                System.out.println("ERROR: ID not unique");
             }
         } while (isNotUniqueID(id));
 
@@ -44,7 +44,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         do {
             name = readStr("Enter LEARNER_NAME");
             if (name.isEmpty()) {
-                System.err.println("Name must not be empty");
+                System.out.println("ERROR: Name must not be empty");
             }
         } while (name.isEmpty());
         learner.setLearnerName(name);
@@ -56,7 +56,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         do {
             score = readDouble("Enter SCORE");
             if (score < 0.0 || score > 10.0) {
-                System.err.println("Please enter a valid SCORE");
+                System.out.println("ERROR: Please enter a valid SCORE");
             }
         } while (score < 0.0 || score > 10.0);
         learner.setScore(score);
@@ -66,7 +66,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         do {
             courseId = generateIDFromStr("course");
             if (!isNotUniqueCourseID(courses, courseId)) {
-                System.err.println("Please enter a valid COURSE number");
+                System.out.println("ERROR: Please enter a valid COURSE number");
             }
         } while (!isNotUniqueCourseID(courses, courseId));
         learner.setCourseID(courseId);
@@ -79,7 +79,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         do {
             id = generateIDFromStr("learn");
             if (!isNotUniqueID(id)) {
-                System.err.println("ID not found");
+                System.out.println("ERROR: ID not found");
             }
         } while (!isNotUniqueID(id));
 
@@ -92,7 +92,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         }
 
         if (index == -1) {
-            System.err.println("ID not found but pass check");
+            System.out.println("ERROR: ID not found but pass check");
             return;
         }
 
@@ -106,7 +106,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
                 learner.setScore(score);
                 break;
             } else if (score != -1) {
-                System.err.println("Please enter a valid SCORE");
+                System.out.println("ERROR: Please enter a valid SCORE");
             }
         } while (!scoreStr.isEmpty());
 
@@ -120,7 +120,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         do {
             id = generateIDFromStr("learner");
             if (!isNotUniqueID(id)) {
-                System.err.println("ID not found");
+                System.out.println("ERROR: ID not found");
             }
         } while (!isNotUniqueID(id));
 
@@ -133,7 +133,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         }
 
         if (index == -1) {
-            System.err.println("ID not found but pass check");
+            System.out.println("ERROR: ID not found but pass check");
             return;
         }
 
@@ -145,7 +145,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         } else if (choice == 2) {
             System.out.println("DELETE canceled");
         } else {
-            System.err.println("DELETE aborted");
+            System.out.println("ERROR: DELETE aborted");
         }
     }
 

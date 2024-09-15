@@ -39,7 +39,7 @@ public class RAMList extends ArrayList<RAMItem> {
                 modules.add(ramModule);
             }
         } catch (FileNotFoundException e) {
-            System.err.println("FileNotFound: " + filename);
+            System.out.println("ERROR: FileNotFound " + filename);
             throw new RuntimeException(e);
         }
     }
@@ -83,7 +83,7 @@ public class RAMList extends ArrayList<RAMItem> {
      */
     private boolean isValidBus(String type, String bus) {
         if (!isValidType(type)) {
-            System.err.println("Invalid RAM module type");
+            System.out.println("ERROR: Invalid RAM module type");
             return false;
         }
 
@@ -96,7 +96,7 @@ public class RAMList extends ArrayList<RAMItem> {
         }
 
         if (index == -1) {
-            System.err.println("Type not found but pass check");
+            System.out.println("ERROR: Type not found but pass check");
         }
 
         for (String x : modules.get(index).getBus()) {
@@ -147,7 +147,7 @@ public class RAMList extends ArrayList<RAMItem> {
         do {
             type = readStr("Enter RAM module TYPE").toUpperCase();
             if (!isValidType(type)) {
-                System.err.println("Please enter a valid TYPE");
+                System.out.println("ERROR: Please enter a valid TYPE");
             }
         } while (!isValidType(type));
         return type;
@@ -182,7 +182,7 @@ public class RAMList extends ArrayList<RAMItem> {
                 }
             }
             if (flag) {
-                System.err.println("Please enter a valid CODE");
+                System.out.println("ERROR: Please enter a valid CODE");
             }
         } while (flag);
 
@@ -201,7 +201,7 @@ public class RAMList extends ArrayList<RAMItem> {
         do {
             bus = generateBusFromStr();
             if (!isValidBus(type, bus)) {
-                System.err.println("Please enter a valid BUS speed");
+                System.out.println("ERROR: Please enter a valid BUS speed");
             }
         } while (!isValidBus(type, bus));
         return bus;
@@ -218,7 +218,7 @@ public class RAMList extends ArrayList<RAMItem> {
         do {
             code = generateCodeFromStr(type);
             if (!isUniqueCode(code)) {
-                System.err.println("Please enter a unique CODE");
+                System.out.println("ERROR: Please enter a unique CODE");
             }
         } while (!isUniqueCode(code));
         RAMItem item = new RAMItem(type, code);
@@ -229,7 +229,7 @@ public class RAMList extends ArrayList<RAMItem> {
         do {
             brand = readStr("Enter BRAND");
             if (brand.isEmpty()) {
-                System.err.println("BRAND must not be blank");
+                System.out.println("ERROR: BRAND must not be blank");
             }
         } while (brand.isEmpty());
         item.setBrand(brand);
@@ -238,7 +238,7 @@ public class RAMList extends ArrayList<RAMItem> {
         do {
             quantity = readInt("Enter QUANTITY");
             if (quantity <= 0) {
-                System.err.println("Please enter a positive QUANTITY");
+                System.out.println("ERROR: Please enter a positive QUANTITY");
             }
         } while (quantity <= 0);
         item.setQuantity(quantity);
@@ -248,14 +248,14 @@ public class RAMList extends ArrayList<RAMItem> {
         do {
             year = readInt("Enter YEAR");
             if (year < 1000 || year > 10000) {
-                System.err.println("Please enter a valid YEAR");
+                System.out.println("ERROR: Please enter a valid YEAR");
             }
         } while (year < 1000 || year > 10000);
 
         do {
             month = readInt("Enter MONTH");
             if (month < 1 || month > 12) {
-                System.err.println("Please enter a valid MONTH");
+                System.out.println("ERROR: Please enter a valid MONTH");
             }
         } while (month < 1 || month > 12);
 
@@ -304,7 +304,7 @@ public class RAMList extends ArrayList<RAMItem> {
             }
 
             if (flag) {
-                System.err.println("Please enter a valid BUS speed");
+                System.out.println("ERROR: Please enter a valid BUS speed");
             }
 
         } while (flag);
@@ -351,7 +351,7 @@ public class RAMList extends ArrayList<RAMItem> {
                 break;
             }
             if (!isValidType(newType)) {
-                System.err.println("Please enter a valid TYPE");
+                System.out.println("ERROR: Please enter a valid TYPE");
             }
         } while (!isValidType(newType));
 
@@ -369,13 +369,13 @@ public class RAMList extends ArrayList<RAMItem> {
             tmpCode = generateCodeFromStr(xRAM.getType(), intCode);
 
             if (!isUniqueCode(tmpCode)) {
-                System.err.println("The CODE is already exist");
+                System.out.println("ERROR: The CODE is already exist");
             }
 
             while (!isUniqueCode(tmpCode)) {
                 tmpCode = generateCodeFromStr(newType);
                 if (!isUniqueCode(tmpCode)) {
-                    System.err.println("Please enter a unique CODE");
+                    System.out.println("ERROR: Please enter a unique CODE");
                 }
             }
 
@@ -395,7 +395,7 @@ public class RAMList extends ArrayList<RAMItem> {
             }
             newBus = newBus + "MHz";
             if (!isValidBus(xRAM.getType(), newBus)) {
-                System.err.println("Please enter a valid BUS speed");
+                System.out.println("ERROR: Please enter a valid BUS speed");
             }
         } while (!isValidBus(xRAM.getType(), newBus));
 
@@ -421,7 +421,7 @@ public class RAMList extends ArrayList<RAMItem> {
             }
             intQuantity = readIntFromStr(newQuantity);
             if (intQuantity <= 0) {
-                System.err.println("Please enter a valid NUMBER");
+                System.out.println("ERROR: Please enter a valid NUMBER");
             }
         } while (intQuantity <= 0);
 
