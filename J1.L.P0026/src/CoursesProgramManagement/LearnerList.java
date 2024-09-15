@@ -1,8 +1,8 @@
 package CoursesProgramManagement;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static CoursesProgramManagement.Tool.*;
 
@@ -49,16 +49,16 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         } while (name.isEmpty());
         learner.setLearnerName(name);
 
-        Date dateOfBirth = readDate("Enter DATE_OF_BIRTH");
+        LocalDate dateOfBirth = readDate("Enter DATE_OF_BIRTH");
         learner.setDateOfBirth(dateOfBirth);
 
         double score;
         do {
             score = readDouble("Enter SCORE");
-            if (score < 0 || score > 10) {
+            if (score < 0.0 || score > 10.0) {
                 System.err.println("Please enter a valid SCORE");
             }
-        } while (score < 0 || score > 10);
+        } while (score < 0.0 || score > 10.0);
         learner.setScore(score);
 
         String courseId;
@@ -104,14 +104,13 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
             double score = parseDoubleFromStr(scoreStr);
             if (score >= 0 && score <= 10) {
                 learner.setScore(score);
+                break;
             } else if (score != -1) {
                 System.err.println("Please enter a valid SCORE");
             }
         } while (!scoreStr.isEmpty());
 
-        System.out.println("OLD: " + this.get(index));
-        System.out.println();
-        System.out.println("NEW: " + learner);
+        System.out.println("UPDATED: " + learner);
 
         this.set(index, learner);
     }
@@ -151,6 +150,11 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
     }
 
     public void displayLearners() {
+        if (this.isEmpty()) {
+            System.out.println("Empty list");
+            return;
+        }
+
         System.out.println(" === Learner === ");
         for (Learner x : this) {
             if (x.getScore() >= 5) {

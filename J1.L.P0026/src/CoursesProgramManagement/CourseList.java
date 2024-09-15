@@ -1,9 +1,9 @@
 package CoursesProgramManagement;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 
 import static CoursesProgramManagement.Tool.*;
 
@@ -42,6 +42,18 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         return id;
     }
 
+    private String getTopicID(TopicList tList) {
+        String id;
+        do {
+            id = generateIDFromStr("topic");
+            if (!isNotUniqueTopicID(tList, id)) {
+                System.err.println("ID not found");
+            }
+        } while (!isNotUniqueTopicID(tList, id));
+
+        return id;
+    }
+
     public void addCourse(TopicList topics) {
         String id;
         do {
@@ -55,7 +67,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
 
         String name;
         do {
-            name = readStr("Enter TOPIC_NAME");
+            name = readStr("Enter COURSE_NAME");
             if (name.isEmpty()) {
                 System.err.println("Name must not be empty");
             }
@@ -75,10 +87,10 @@ public class CourseList extends ArrayList<Course> implements Serializable {
             }
         } while (type < 1 || type > 2);
 
-        Date begin = readDate("Enter BEGIN_DATE (yyyy-MM-dd)");
+        LocalDate begin = readDate("Enter BEGIN_DATE (yyyy-MM-dd)");
         course.setBeginDate(begin);
 
-        Date end = readDateAfter("Enter END_DATE (yyyy-MM-dd)", begin);
+        LocalDate end = readDateAfter("Enter END_DATE (yyyy-MM-dd)", begin);
         course.setEndDate(end);
 
         int fee;
@@ -137,13 +149,13 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         }
 
         String beginStr = readStr("Enter BEGIN_DATE (yyyy-MM-dd)");
-        Date begin = course.getBeginDate();
+        LocalDate begin = course.getBeginDate();
         if (!beginStr.isEmpty()) {
             begin = parseDate(beginStr);
         }
 
         String endStr = readStr("Enter END_DATE (yyyy-MM-dd)");
-        Date end = course.getEndDate();
+        LocalDate end = course.getEndDate();
         if (!endStr.isEmpty()) {
             end = parseDate(endStr);
         }
@@ -187,9 +199,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
             course.setCourseStatus(Course.Status.INACTIVE);
         }
 
-        System.out.println("OLD: " + this.get(index));
-        System.out.println();
-        System.out.println("NEW: " + course);
+        System.out.println("UPDATED: " + course);
 
         this.set(index, course);
     }
@@ -223,6 +233,13 @@ public class CourseList extends ArrayList<Course> implements Serializable {
     }
 
     public void displayCourses(LearnerList learners) {
+        if (this.isEmpty()) {
+            System.out.println("Empty list");
+            return;
+        }
+
+        System.out.println("\t === Courses ===");
+
         CourseList cList = this;
 
         cList.sort(Comparator.comparing(Course::getBeginDate));
@@ -248,19 +265,17 @@ public class CourseList extends ArrayList<Course> implements Serializable {
     }
 
     public void searchByTopic(TopicList topics, LearnerList learners) {
-        String id = getCourseID();
+        String id = getTopicID(topics);
         System.out.println();
         for (Course x : this) {
             if (!x.getTopicID().equals(id)) {
                 continue;
             }
 
-            int incomeCount = 0;
             int pass = 0;
             int fail = 0;
             for (Learner y : learners) {
                 if (y.getCourseID().equals(x.getCourseID())) {
-                    incomeCount++;
                     if (y.getScore() >= 5) {
                         pass++;
                     } else {
@@ -281,12 +296,10 @@ public class CourseList extends ArrayList<Course> implements Serializable {
                 continue;
             }
 
-            int incomeCount = 0;
             int pass = 0;
             int fail = 0;
             for (Learner y : learners) {
                 if (y.getCourseID().equals(x.getCourseID())) {
-                    incomeCount++;
                     if (y.getScore() >= 5) {
                         pass++;
                     } else {
