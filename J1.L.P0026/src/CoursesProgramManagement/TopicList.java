@@ -60,6 +60,7 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
                 System.err.println("Please enter a valid number");
             }
         } while (duration <= 0 || duration > 52);
+        topic.setTopicDurationInWeek(duration);
 
         this.add(topic);
     }
@@ -107,14 +108,12 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
             if (duration > 0 && duration <= 52) {
                 topic.setTopicDurationInWeek(duration);
                 break;
-            } else {
+            } else if (!duraStr.isEmpty()) {
                 System.err.println("Please enter a valid number");
             }
         } while (!duraStr.isEmpty());
 
-        System.out.println("OLD: " + this.get(index));
-        System.out.println();
-        System.out.println("NEW" + topic);
+        System.out.println("UPDATED: " + topic);
 
         this.set(index, topic);
 
@@ -155,6 +154,11 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
     }
 
     public void displayALL() {
+        if (this.isEmpty()) {
+            System.out.println("Empty list");
+            return;
+        }
+
         System.out.println(" === Topics ===");
 
         ArrayList<Topic> tList = this;
