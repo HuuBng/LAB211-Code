@@ -1,5 +1,10 @@
 package CoursesProgramManagement;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import static CoursesProgramManagement.Tool.*;
@@ -18,6 +23,7 @@ public class Management {
     public void manageTopic() {
         ArrayList<String> opts = new ArrayList<>();
 
+        System.out.println("\t=== Manage Topic ===");
         opts.add("Add topic");
         opts.add("Update topic");
         opts.add("Delete topic");
@@ -59,6 +65,7 @@ public class Management {
     public void manageCourse() {
         ArrayList<String> opts = new ArrayList<>();
 
+        System.out.println("\t=== Manage Course ===");
         opts.add("Add course");
         opts.add("Update course");
         opts.add("Delete course");
@@ -100,6 +107,7 @@ public class Management {
     public void manageLearner() {
         ArrayList<String> opts = new ArrayList<>();
 
+        System.out.println("\t=== Manage Learner ===");
         opts.add("Add learner");
         opts.add("Add scores to learner");
         opts.add("Delete learner");
@@ -141,6 +149,7 @@ public class Management {
     public void search() {
         ArrayList<String> opts = new ArrayList<>();
 
+        System.out.println("\t=== Search ===");
         opts.add("Search topic");
         opts.add("Search course");
         opts.add("Exit");
@@ -157,7 +166,8 @@ public class Management {
                 case 2:
                     int choice2;
                     do {
-                        choice2 = int_menu("By topic", "By name");
+                        System.out.println("Search:");
+                        choice2 = int_menu("By topic", "By name", "Exit");
                         switch (choice2) {
                             case 1:
                                 cList.searchByTopic(tList, lList);
@@ -180,7 +190,27 @@ public class Management {
         } while (choice != opts.size());
     }
 
-    public void saveToFile() {
+    public void saveToFile(String filename) {
+        try (ObjectOutputStream output = new ObjectOutputStream(Files.newOutputStream(Paths.get(filename)))) {
+            Object[] objects = {tList, cList, lList};
+            output.writeObject(objects);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            System.out.println("Saved!!!");
+        }
+    }
 
+    public void loadFromFile(String filename) {
+        try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(Paths.get(filename)))) {
+            Object[] objects = (Object[]) input.readObject();
+            tList = (TopicList) objects[0];
+            cList = (CourseList) objects[1];
+            lList = (LearnerList) objects[2];
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            System.out.println("Loaded!!!");
+        }
     }
 }
