@@ -1,7 +1,7 @@
 package CoursesProgramManagement;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Course implements Serializable {
 
@@ -18,8 +18,8 @@ public class Course implements Serializable {
     private final String courseID;
     private String courseName;
     private Type courseType;
-    private Date beginDate;
-    private Date endDate;
+    private LocalDate beginDate;
+    private LocalDate endDate;
     private int tuitionFee;
     private String topicID;
     private Status courseStatus;
@@ -48,19 +48,19 @@ public class Course implements Serializable {
         this.courseType = courseType;
     }
 
-    public Date getBeginDate() {
+    public LocalDate getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(Date beginDate) {
+    public void setBeginDate(LocalDate beginDate) {
         this.beginDate = beginDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

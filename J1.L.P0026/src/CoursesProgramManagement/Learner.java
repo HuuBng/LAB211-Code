@@ -1,25 +1,17 @@
 package CoursesProgramManagement;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Learner implements Serializable {
     private final String learnerID;
     private String learnerName;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private double score;
     private String courseID;
 
     public Learner(String learnerID) {
         this.learnerID = learnerID;
-    }
-
-    public Learner(String learnerID, String learnerName, Date dateOfBirth, double score, String courseID) {
-        this.learnerID = learnerID;
-        this.learnerName = learnerName;
-        this.dateOfBirth = dateOfBirth;
-        this.score = score;
-        this.courseID = courseID;
     }
 
     public String getLearnerID() {
@@ -34,11 +26,11 @@ public class Learner implements Serializable {
         this.learnerName = learnerName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
