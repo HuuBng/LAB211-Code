@@ -103,11 +103,16 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         course.setTuitionFee(fee);
 
         String topicId;
+        int failCount = 0;
         do {
             topicId = generateIDFromStr("topic");
             if (!isNotUniqueTopicID(topics, topicId)) {
-                System.err.println("Please enter a valid TOPIC number");
                 System.out.println("ERROR: Please enter a valid TOPIC number");
+                failCount++;
+            }
+            if (failCount == 5) {
+                System.out.println("ERROR: Please create a TOPIC first");
+                return;
             }
         } while (!isNotUniqueTopicID(topics, topicId));
 
@@ -268,11 +273,12 @@ public class CourseList extends ArrayList<Course> implements Serializable {
     public void searchByTopic(TopicList topics, LearnerList learners) {
         String id = getTopicID(topics);
         System.out.println();
+        int foundCount = 0;
         for (Course x : this) {
             if (!x.getTopicID().equals(id)) {
                 continue;
             }
-
+            foundCount++;
             int pass = 0;
             int fail = 0;
             for (Learner y : learners) {
@@ -287,16 +293,18 @@ public class CourseList extends ArrayList<Course> implements Serializable {
 
             System.out.println(x + ", pass: " + pass + ", fail: " + fail);
         }
+        System.out.println("FOUND: " + foundCount);
     }
 
     public void searchPartialName(TopicList topics, LearnerList learners) {
         String name = readStr("Enter NAME to search");
         System.out.println();
+        int foundCount = 0;
         for (Course x : this) {
             if (!x.getCourseName().contains(name)) {
                 continue;
             }
-
+            foundCount++;
             int pass = 0;
             int fail = 0;
             for (Learner y : learners) {
@@ -311,6 +319,8 @@ public class CourseList extends ArrayList<Course> implements Serializable {
 
             System.out.println(x + ", pass: " + pass + ", fail: " + fail);
         }
+
+        System.out.println("FOUND: " + foundCount);
     }
 
 }

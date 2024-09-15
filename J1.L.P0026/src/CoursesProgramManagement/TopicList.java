@@ -171,11 +171,15 @@ public class TopicList extends ArrayList<Topic> implements Serializable {
     public void searchPartialName() {
         String name = readStr("Enter NAME to search");
         System.out.println();
+        int foundCount = 0;
         for (Topic x : this) {
             if (x.getTopicName().contains(name)) {
                 System.out.println(x);
+                foundCount++;
             }
         }
+
+        System.out.println("FOUND: " + foundCount);
     }
 
 }

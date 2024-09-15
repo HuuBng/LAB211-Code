@@ -32,7 +32,7 @@ public class Management {
 
         int choice;
         do {
-            choice = int_menu2(opts);
+            choice = int_menu2(1, opts);
             switch (choice) {
                 case 1:
                     do {
@@ -74,7 +74,7 @@ public class Management {
 
         int choice;
         do {
-            choice = int_menu2(opts);
+            choice = int_menu2(2, opts);
             switch (choice) {
                 case 1:
                     do {
@@ -116,7 +116,7 @@ public class Management {
 
         int choice;
         do {
-            choice = int_menu2(opts);
+            choice = int_menu2(3, opts);
             switch (choice) {
                 case 1:
                     do {
@@ -156,7 +156,7 @@ public class Management {
 
         int choice;
         do {
-            choice = int_menu2(opts);
+            choice = int_menu2(4, opts);
             switch (choice) {
                 case 1:
                     do {
