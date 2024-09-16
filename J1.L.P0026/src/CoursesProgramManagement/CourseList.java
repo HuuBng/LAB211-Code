@@ -147,31 +147,36 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         }
 
         System.out.println("Course status ?");
-        int type = int_menu("Online", "Offline");
+        int type = int_menu("Online", "Offline", "(blank)");
         if (type == 1) {
             course.setCourseType(Course.Type.ONLINE);
         } else if (type == 2) {
             course.setCourseType(Course.Type.OFFLINE);
         }
 
+        boolean changed = false;
         String beginStr = readStr("Enter BEGIN_DATE (yyyy-MM-dd)");
         LocalDate begin = course.getBeginDate();
         if (!beginStr.isEmpty()) {
             begin = parseDate(beginStr);
+            changed = true;
         }
 
         String endStr = readStr("Enter END_DATE (yyyy-MM-dd)");
         LocalDate end = course.getEndDate();
         if (!endStr.isEmpty()) {
             end = parseDate(endStr);
+            changed = true;
         }
 
-        assert begin != null;
-        if (isValidBeginEndDate(begin, end)) {
-            course.setBeginDate(begin);
-            course.setEndDate(end);
-        } else {
-            System.out.println("ERROR: BEGIN_DATE must be before END_DATE || END_DATE must be after BEGIN_DATE");
+        if (changed) {
+            assert begin != null;
+            if (isValidBeginEndDate(begin, end)) {
+                course.setBeginDate(begin);
+                course.setEndDate(end);
+            } else {
+                System.out.println("ERROR: BEGIN_DATE must be before END_DATE || END_DATE must be after BEGIN_DATE");
+            }
         }
 
         String feeStr;
@@ -181,7 +186,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
             if (fee >= 0) {
                 course.setTuitionFee(fee);
                 break;
-            } else {
+            } else if (!feeStr.isEmpty()) {
                 System.out.println("ERROR: Please enter a valid TUITION_FEE");
             }
         } while (!feeStr.isEmpty());

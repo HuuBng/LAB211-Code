@@ -62,11 +62,16 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         learner.setScore(score);
 
         String courseId;
-
+        int failCount = 0;
         do {
             courseId = generateIDFromStr("course");
             if (!isNotUniqueCourseID(courses, courseId)) {
                 System.out.println("ERROR: Please enter a valid COURSE number");
+                failCount++;
+            }
+            if (failCount == 5) {
+                System.out.println("ERROR: Please create a COURSE first");
+                return;
             }
         } while (!isNotUniqueCourseID(courses, courseId));
         learner.setCourseID(courseId);
