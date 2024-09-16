@@ -194,10 +194,10 @@ public class Management {
         try (ObjectOutputStream output = new ObjectOutputStream(Files.newOutputStream(Paths.get(filename)))) {
             Object[] objects = {tList, cList, lList};
             output.writeObject(objects);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
             System.out.println("Saved!!!");
+
+        } catch (IOException e) {
+            System.out.println("ERROR: Saving file " + filename);
         }
     }
 
@@ -208,9 +208,7 @@ public class Management {
             cList = (CourseList) objects[1];
             lList = (LearnerList) objects[2];
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } finally {
-            System.out.println("Loaded!!!");
+            System.out.println("ERROR: Reading file " + filename);
         }
     }
 }

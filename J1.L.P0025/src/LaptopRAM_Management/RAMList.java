@@ -2,6 +2,7 @@ package LaptopRAM_Management;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.time.YearMonth;
 import java.util.*;
@@ -40,7 +41,6 @@ public class RAMList extends ArrayList<RAMItem> {
             }
         } catch (FileNotFoundException e) {
             System.out.println("ERROR: FileNotFound " + filename);
-            throw new RuntimeException(e);
         }
     }
 
@@ -499,10 +499,9 @@ public class RAMList extends ArrayList<RAMItem> {
 
         try (ObjectOutputStream output = new ObjectOutputStream(Files.newOutputStream(Paths.get(filename)))) {
             output.writeObject(rList);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
             System.out.println("Saved!!!");
+        } catch (IOException e) {
+            System.out.println("ERROR: Saving file " + filename);
         }
     }
 
@@ -510,7 +509,7 @@ public class RAMList extends ArrayList<RAMItem> {
         try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(Paths.get(filename)))) {
             rList = (ArrayList<RAMItem>) input.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("ERROR: Reading file " + filename);
         }
     }
 }

@@ -328,7 +328,6 @@ public class ProductList extends ArrayList<Product> {
             }
         } catch (FileNotFoundException e) {
             System.out.println("ERROR: FileNotFound " + filename);
-            throw new RuntimeException(e);
         }
     }
 
