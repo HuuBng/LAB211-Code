@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Management catalog = new Management();
 
-        String dataFile = "J1.L.P0026/src/data.dat";
+        String dataFile = "J1.L.P0026/src/Data.dat";
         catalog.loadFromFile(dataFile);
         ArrayList<String> menu = new ArrayList<>();
         menu.add("Manage Topic");
