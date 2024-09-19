@@ -52,15 +52,6 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         LocalDate dateOfBirth = readDate("Enter DATE_OF_BIRTH");
         learner.setDateOfBirth(dateOfBirth);
 
-        double score;
-        do {
-            score = readDouble("Enter SCORE");
-            if (score < 0.0 || score > 10.0) {
-                System.out.println("ERROR: Please enter a valid SCORE");
-            }
-        } while (score < 0.0 || score > 10.0);
-        learner.setScore(score);
-
         String courseId;
         int failCount = 0;
         do {
@@ -75,6 +66,15 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
             }
         } while (!isNotUniqueCourseID(courses, courseId));
         learner.setCourseID(courseId);
+
+        double score;
+        do {
+            score = readDouble("Enter SCORE");
+            if (score < 0.0 || score > 10.0) {
+                System.out.println("ERROR: Please enter a valid SCORE");
+            }
+        } while (score < 0.0 || score > 10.0);
+        learner.setScore(score);
 
         this.add(learner);
     }
