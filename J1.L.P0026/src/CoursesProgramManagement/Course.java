@@ -23,9 +23,12 @@ public class Course implements Serializable {
     private int tuitionFee;
     private String topicID;
     private Status courseStatus;
+    private int maxLearner;
+    private int curLearner;
 
     public Course(String courseID) {
         this.courseID = courseID;
+        this.curLearner = 0;
     }
 
     public String getCourseID() {
@@ -88,9 +91,33 @@ public class Course implements Serializable {
         this.courseStatus = courseStatus;
     }
 
+    public int getMaxLearner() {
+        return maxLearner;
+    }
+
+    public void setMaxLearner(int maxLearner) {
+        this.maxLearner = maxLearner;
+    }
+
+    public int getCurLearner() {
+        return curLearner;
+    }
+
+    public void curLearnerPlus() {
+        if (curLearner < maxLearner) {
+            curLearner++;
+        }
+    }
+
+    public void curLearnerMinus() {
+        if (curLearner > 0) {
+            curLearner--;
+        }
+    }
+
     @Override
     public String toString() {
-        return courseID + ", " + courseName + ", " + courseType + ", " + beginDate + ", " + endDate + ", " + tuitionFee + ", " + topicID + ", " + courseStatus;
+        return courseID + ", " + courseName + ", " + courseType + ", " + beginDate + ", " + endDate + ", " + tuitionFee + ", " + topicID + ", " + curLearner + "/" + maxLearner + ", " + courseStatus;
     }
 
 }

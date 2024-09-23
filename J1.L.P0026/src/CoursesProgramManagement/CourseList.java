@@ -115,8 +115,16 @@ public class CourseList extends ArrayList<Course> implements Serializable {
                 return;
             }
         } while (!isNotUniqueTopicID(topics, topicId));
-
         course.setTopicID(topicId);
+
+        int max;
+        do {
+            max = readInt("Enter MAX_LEARNER");
+            if (max <= 0) {
+                System.out.println("ERROR: Please enter a valid MAX_LEARNER");
+            }
+        } while (max <= 0);
+        course.setMaxLearner(max);
 
         course.setCourseStatus(Course.Status.ACTIVE);
 
@@ -170,7 +178,6 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         }
 
         if (changed) {
-            assert begin != null;
             if (isValidBeginEndDate(begin, end)) {
                 course.setBeginDate(begin);
                 course.setEndDate(end);
@@ -191,16 +198,48 @@ public class CourseList extends ArrayList<Course> implements Serializable {
             }
         } while (!feeStr.isEmpty());
 
-        String topicId;
+        String topicId = null;
+        String str = null;
+        int failCount = 0;
         do {
-            topicId = generateIDFromStr("topic");
+            str = readStr("Enter TOPIC number");
+            if (str.isEmpty()) {
+                break;
+            }
+
+            int num = readIntFromStr(str);
+            if (num == -1) {
+                System.out.println("ERROR: Please enter a valid TOPIC number");
+                failCount++;
+                continue;
+            }
+
+            topicId = generateCode("T", 3, num);
             if (isNotUniqueTopicID(topics, topicId)) {
                 course.setTopicID(topicId);
                 break;
             } else {
                 System.out.println("ERROR: Please enter a valid TOPIC number");
+                failCount++;
             }
-        } while (!topicId.isEmpty());
+
+            if (failCount == 5) {
+                System.out.println("ERROR: Please create a TOPIC first");
+                break;
+            }
+        } while (true);
+
+        String maxStr;
+        do {
+            maxStr = readStr("Enter MAX_LEARNER");
+            int max = parseIntFromStr(maxStr);
+            if (max > 0) {
+                course.setMaxLearner(max);
+                break;
+            } else if (!maxStr.isEmpty()) {
+                System.out.println("ERROR: Please enter a valid MAX_LEARNER");
+            }
+        } while (!maxStr.isEmpty());
 
         System.out.println("Course status ?");
         int status = int_menu("Active", "Inactive", "(blank)");
@@ -306,7 +345,7 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         System.out.println();
         int foundCount = 0;
         for (Course x : this) {
-            if (!x.getCourseName().contains(name)) {
+            if (!x.getCourseName().toLowerCase().contains(name.toLowerCase())) {
                 continue;
             }
             foundCount++;

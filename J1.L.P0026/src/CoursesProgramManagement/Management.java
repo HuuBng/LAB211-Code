@@ -130,7 +130,7 @@ public class Management {
                     break;
                 case 3:
                     do {
-                        lList.deleteLearner();
+                        lList.deleteLearner(cList);
                     } while (exitChoice("Delete another", "Exit"));
                     break;
                 case 4:

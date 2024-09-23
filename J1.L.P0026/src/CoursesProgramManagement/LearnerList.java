@@ -20,15 +20,6 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         return false;
     }
 
-    private boolean isNotUniqueCourseID(CourseList courses, String id) {
-        for (Course x : courses) {
-            if (x.getCourseID().equals(id)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void addLearner(CourseList courses) {
         String id;
         do {
@@ -53,18 +44,43 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         learner.setDateOfBirth(dateOfBirth);
 
         String courseId;
+        boolean isUniqueCourseID = true;
+        boolean isInvalidCurLearner = true;
+        boolean found = false;
         int failCount = 0;
+        int failCount2 = 0;
         do {
             courseId = generateIDFromStr("course");
-            if (!isNotUniqueCourseID(courses, courseId)) {
+            for (Course x : courses) {
+                if (x.getCourseID().equals(courseId)) {
+                    found = true;
+                    isUniqueCourseID = false;
+                    if (x.getCurLearner() < x.getMaxLearner()) {
+                        x.curLearnerPlus();
+                        isInvalidCurLearner = false;
+                    } else {
+                        System.out.println("ERROR: Course is at MAX_LEARNER");
+                        isInvalidCurLearner = true;
+                        failCount2++;
+                    }
+                }
+            }
+
+            if (!found) {
+                isUniqueCourseID = true;
                 System.out.println("ERROR: Please enter a valid COURSE number");
                 failCount++;
             }
+
             if (failCount == 5) {
                 System.out.println("ERROR: Please create a COURSE first");
                 return;
             }
-        } while (!isNotUniqueCourseID(courses, courseId));
+            if (failCount2 == 5) {
+                System.out.println("ERROR: Please change to a different COURSE");
+                return;
+            }
+        } while (isInvalidCurLearner || isUniqueCourseID);
         learner.setCourseID(courseId);
 
         double score;
@@ -82,7 +98,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
     public void updateScore() {
         String id;
         do {
-            id = generateIDFromStr("learn");
+            id = generateIDFromStr("learner");
             if (!isNotUniqueID(id)) {
                 System.out.println("ERROR: ID not found");
             }
@@ -120,7 +136,7 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         this.set(index, learner);
     }
 
-    public void deleteLearner() {
+    public void deleteLearner(CourseList courses) {
         String id;
         do {
             id = generateIDFromStr("learner");
@@ -145,6 +161,12 @@ public class LearnerList extends ArrayList<Learner> implements Serializable {
         System.out.println("Delete " + id + " ?");
         int choice = int_menu("Yes", "No");
         if (choice == 1) {
+            for (Course x : courses) {
+                if (x.getCourseID().equals(this.get(index).getCourseID())) {
+                    x.curLearnerMinus();
+                    break;
+                }
+            }
             this.remove(index);
             System.out.println("DELETE success");
         } else if (choice == 2) {
