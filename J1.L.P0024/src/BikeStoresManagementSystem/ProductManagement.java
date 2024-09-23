@@ -2,8 +2,8 @@ package BikeStoresManagementSystem;
 
 import java.util.ArrayList;
 
-import static BikeStoresManagementSystem.Tool.int_menu;
 import static BikeStoresManagementSystem.Tool.exitChoice;
+import static BikeStoresManagementSystem.Tool.int_menu;
 
 public class ProductManagement {
 
@@ -17,6 +17,7 @@ public class ProductManagement {
 
         prodList.loadBrand(bFile);
         prodList.loadCategory(cFile);
+        prodList.loadProductFromFile(pFile);
 
         // Menu
         ArrayList<String> opts = new ArrayList<>();
@@ -31,11 +32,13 @@ public class ProductManagement {
 
         do {
 
-            System.out.println("\n||===============================||");
-            System.out.println("||                               ||");
-            System.out.println("|| Bike Stores Management System ||");
-            System.out.println("||                               ||");
-            System.out.println("||===============================||");
+            System.out.println(
+                    "========================================================================================\n" +
+                            "|| ╔╗ ┬┬┌─┌─┐  ╔═╗┌┬┐┌─┐┬─┐┌─┐┌─┐  ╔╦╗┌─┐┌┐┌┌─┐┌─┐┌─┐┌┬┐┌─┐┌┐┌┌┬┐  ╔═╗┬ ┬┌─┐┌┬┐┌─┐┌┬┐ ||\n" +
+                            "|| ╠╩╗│├┴┐├┤   ╚═╗ │ │ │├┬┘├┤ └─┐  ║║║├─┤│││├─┤│ ┬├┤ │││├┤ │││ │   ╚═╗└┬┘└─┐ │ ├┤ │││ ||\n" +
+                            "|| ╚═╝┴┴ ┴└─┘  ╚═╝ ┴ └─┘┴└─└─┘└─┘  ╩ ╩┴ ┴┘└┘┴ ┴└─┘└─┘┴ ┴└─┘┘└┘ ┴   ╚═╝ ┴ └─┘ ┴ └─┘┴ ┴ ||\n" +
+                            "========================================================================================"
+            );
 
             choice = int_menu(opts);
             System.out.println();

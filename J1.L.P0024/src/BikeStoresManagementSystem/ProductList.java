@@ -37,7 +37,6 @@ public class ProductList extends ArrayList<Product> {
             }
         } catch (FileNotFoundException e) {
             System.out.println("FileNotFound: " + filename);
-            throw new RuntimeException(e);
         }
     }
 
@@ -54,7 +53,26 @@ public class ProductList extends ArrayList<Product> {
             }
         } catch (FileNotFoundException e) {
             System.out.println("FileNotFound: " + filename);
-            throw new RuntimeException(e);
+        }
+    }
+
+    public void loadProductFromFile(String filename) {
+        try (Scanner scf = new Scanner(new File(filename))) {
+            while (scf.hasNext()) {
+                String[] data = scf.nextLine().split(", ");
+                if (data.length < 6) {
+                    continue;
+                }
+                Product product = new Product(data[0]);
+                product.setName(data[1]);
+                product.setBrandID(data[2]);
+                product.setCategoryID(data[3]);
+                product.setYear(Integer.parseInt(data[4]));
+                product.setPrice(Integer.parseInt(data[5]));
+                pList.add(product);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR: FileNotFound " + filename);
         }
     }
 
