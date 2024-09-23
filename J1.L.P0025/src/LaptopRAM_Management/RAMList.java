@@ -269,16 +269,21 @@ public class RAMList extends ArrayList<RAMItem> {
     }
 
     public void searchByType() {
+        boolean flag = false;
         String type = getType();
         for (RAMItem x : rList) {
             if (x.getType().equals(type)) {
                 System.out.println(x.getCode() + ", " + x.getType() + ", " + x.getProdDate() + ", " + x.getQuantity());
+                flag = true;
             }
+        }
+
+        if (!flag) {
+            System.out.println("Not found: " + type);
         }
     }
 
     public void searchByBus() {
-
         // Import all BUS speed
         TreeSet<Integer> busSpeed = new TreeSet<>();
         for (RAMModule x : modules) {
@@ -309,20 +314,34 @@ public class RAMList extends ArrayList<RAMItem> {
 
         } while (flag);
 
+        // Reset flag
+        flag = false;
+
         for (RAMItem x : rList) {
             if (x.getBus().equals(bus)) {
                 System.out.println(x.getCode() + ", " + x.getBus() + ", " + x.getProdDate() + ", " + x.getQuantity());
+                flag = true;
             }
+        }
+
+        if (!flag) {
+            System.out.println("Not found: " + bus);
         }
 
     }
 
     public void searchByBrand() {
+        boolean flag = false;
         String brand = readStr("Enter BRAND");
         for (RAMItem x : rList) {
             if (x.getBrand().equalsIgnoreCase(brand)) {
                 System.out.println(x.getCode() + ", " + x.getBrand() + ", " + x.getProdDate() + ", " + x.getQuantity());
+                flag = true;
             }
+        }
+
+        if (!flag) {
+            System.out.println("Not found: " + brand);
         }
     }
 
