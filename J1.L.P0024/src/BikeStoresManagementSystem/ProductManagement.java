@@ -11,9 +11,9 @@ public class ProductManagement {
 
         ProductList prodList = new ProductList();
 
-        String bFile = "J1.L.P0024/src/Brand.txt";
-        String cFile = "J1.L.P0024/src/Category.txt";
-        String pFile = "J1.L.P0024/src/Product.txt";
+        String bFile = "src/Brand.txt";
+        String cFile = "src/Category.txt";
+        String pFile = "src/Product.txt";
 
         prodList.loadBrand(bFile);
         prodList.loadCategory(cFile);
@@ -32,13 +32,11 @@ public class ProductManagement {
 
         do {
 
-            System.out.println(
-                    "========================================================================================\n" +
-                            "|| ╔╗ ┬┬┌─┌─┐  ╔═╗┌┬┐┌─┐┬─┐┌─┐┌─┐  ╔╦╗┌─┐┌┐┌┌─┐┌─┐┌─┐┌┬┐┌─┐┌┐┌┌┬┐  ╔═╗┬ ┬┌─┐┌┬┐┌─┐┌┬┐ ||\n" +
-                            "|| ╠╩╗│├┴┐├┤   ╚═╗ │ │ │├┬┘├┤ └─┐  ║║║├─┤│││├─┤│ ┬├┤ │││├┤ │││ │   ╚═╗└┬┘└─┐ │ ├┤ │││ ||\n" +
-                            "|| ╚═╝┴┴ ┴└─┘  ╚═╝ ┴ └─┘┴└─└─┘└─┘  ╩ ╩┴ ┴┘└┘┴ ┴└─┘└─┘┴ ┴└─┘┘└┘ ┴   ╚═╝ ┴ └─┘ ┴ └─┘┴ ┴ ||\n" +
-                            "========================================================================================"
-            );
+            System.out.println("\n||===============================||");
+            System.out.println("||                               ||");
+            System.out.println("|| Bike Stores Management System ||");
+            System.out.println("||                               ||");
+            System.out.println("||===============================||");
 
             choice = int_menu(opts);
             System.out.println();

@@ -78,12 +78,16 @@ public class CourseList extends ArrayList<Course> implements Serializable {
         do {
             System.out.println("Course type: ");
             type = int_menu("Online", "Offline");
-            if (type == 1) {
-                course.setCourseType(Course.Type.ONLINE);
-            } else if (type == 2) {
-                course.setCourseType(Course.Type.OFFLINE);
-            } else {
-                System.out.println("ERROR: Please enter a valid number");
+            switch (type) {
+                case 1:
+                    course.setCourseType(Course.Type.ONLINE);
+                    break;
+                case 2:
+                    course.setCourseType(Course.Type.OFFLINE);
+                    break;
+                default:
+                    System.out.println("ERROR: Please enter a valid number");
+                    break;
             }
         } while (type < 1 || type > 2);
 
@@ -272,13 +276,17 @@ public class CourseList extends ArrayList<Course> implements Serializable {
 
         System.out.println("Delete " + id + " ?");
         int choice = int_menu("Yes", "No");
-        if (choice == 1) {
-            this.remove(index);
-            System.out.println("DELETE success");
-        } else if (choice == 2) {
-            System.out.println("DELETE canceled");
-        } else {
-            System.out.println("ERROR: DELETE aborted");
+        switch (choice) {
+            case 1:
+                this.remove(index);
+                System.out.println("DELETE success");
+                break;
+            case 2:
+                System.out.println("DELETE canceled");
+                break;
+            default:
+                System.out.println("ERROR: DELETE aborted");
+                break;
         }
     }
 

@@ -492,11 +492,11 @@ public class RAMList extends ArrayList<RAMItem> {
     public void displayAllItem() {
         rList.sort((o1, o2) -> {
             int int_o1 = Integer.parseInt(o1.getBus().replaceAll("\\D+", ""));
-            int in_o2 = Integer.parseInt(o2.getBus().replaceAll("\\D+", ""));
+            int int_o2 = Integer.parseInt(o2.getBus().replaceAll("\\D+", ""));
             if (o1.getType().compareTo(o2.getType()) != 0) {
                 return o1.getType().compareTo(o2.getType());
-            } else if (int_o1 - in_o2 != 0) {
-                return int_o1 - in_o2;
+            } else if (int_o1 - int_o2 != 0) {
+                return int_o1 - int_o2;
             } else {
                 return o1.getBrand().compareTo(o2.getBrand());
             }

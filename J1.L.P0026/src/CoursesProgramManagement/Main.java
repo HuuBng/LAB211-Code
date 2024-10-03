@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Management catalog = new Management();
 
-        String dataFile = "J1.L.P0026/src/Data.dat";
+        String dataFile = "src/Data.dat";
         catalog.loadFromFile(dataFile);
         ArrayList<String> menu = new ArrayList<>();
         menu.add("Manage Topic");
@@ -22,13 +22,11 @@ public class Main {
         int choice;
         do {
 
-            System.out.println(
-                    "\n=======================================================================\n" +
-                            "|| ┏┓            ┏┓               ┳┳┓                    ┏┓          ||\n" +
-                            "|| ┃ ┏┓┓┏┏┓┏┏┓┏  ┃┃┏┓┏┓┏┓┏┓┏┓┏┳┓  ┃┃┃┏┓┏┓┏┓┏┓┏┓┏┳┓┏┓┏┓╋  ┗┓┓┏┏╋┏┓┏┳┓ ||\n" +
-                            "|| ┗┛┗┛┗┻┛ ┛┗ ┛  ┣┛┛ ┗┛┗┫┛ ┗┻┛┗┗  ┛ ┗┗┻┛┗┗┻┗┫┗ ┛┗┗┗ ┛┗┗  ┗┛┗┫┛┗┗ ┛┗┗ ||\n" +
-                            "||                      ┛                   ┛               ┛        ||\n" +
-                            "=======================================================================\n");
+            System.out.println("\n||===================================||");
+            System.out.println("||                                   ||");
+            System.out.println("|| Courses Program Management System ||");
+            System.out.println("||                                   ||");
+            System.out.println("||===================================||");
 
             choice = int_menu(menu);
             System.out.println();

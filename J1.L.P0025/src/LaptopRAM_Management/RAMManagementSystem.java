@@ -11,9 +11,9 @@ public class RAMManagementSystem {
 
         RAMList ramList = new RAMList();
 
-        String moduleFile = "J1.L.P0025/src/RAM_data.txt";
+        String moduleFile = "src/RAM_data.txt";
         ramList.loadRAMModules(moduleFile);
-        String RAMModules = "J1.L.P0025/src/RAMModules.dat";
+        String RAMModules = "src/RAMModules.dat";
         ramList.loadFromFile(RAMModules);
 
         // menu
@@ -30,11 +30,11 @@ public class RAMManagementSystem {
 
         do {
 
-            System.out.println(
-                    " ___    __    _          _       __    _       __    __    ____  _      ____  _     _____      __   _     __  _____  ____  _     \n" +
-                            "| |_)  / /\\  | |\\/|     | |\\/|  / /\\  | |\\ |  / /\\  / /`_ | |_  | |\\/| | |_  | |\\ |  | |      ( (` \\ \\_/ ( (`  | |  | |_  | |\\/| \n" +
-                            "|_| \\ /_/--\\ |_|  |     |_|  | /_/--\\ |_| \\| /_/--\\ \\_\\_/ |_|__ |_|  | |_|__ |_| \\|  |_|      _)_)  |_|  _)_)  |_|  |_|__ |_|  | \n"
-            );
+            System.out.println("\n||=======================||");
+            System.out.println("||                       ||");
+            System.out.println("|| RAM Management System ||");
+            System.out.println("||                       ||");
+            System.out.println("||=======================||");
 
             choice = int_menu(opts);
             System.out.println();
